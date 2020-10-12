@@ -12,7 +12,7 @@ entity address_decoder is
     (
         opcode :                                         in std_logic_vector((data_width-1) downto 0);
         address :                                        in std_logic_vector((address_width-1) downto 0);
-        SEG7_0, SEG7_1, SEG7_2, SEG7_3, SEG7_4, SEG7_5 : out std_logic := 0;
+        HEX0, HEX1, HEX2, HEX3, HEX4, HEX5 :             out std_logic := 0;
         LED0, LED1, RAM :                                out std_logic := 0;
         BUT, BaseTempo, SW0, SW1 :                       out std_logic := 0
     );
@@ -40,22 +40,22 @@ architecture rtl of address_decoder is
                 SW1 <= '1'
             end if;
             else if (to_integer(address) == 1285-1024)
-                SEG7_0 <= '1'
+                HEX0 <= '1'
             end if;
             else if (to_integer(address) == 1286-1024)
-                SEG7_1 <= '1'
+                HEX1 <= '1'
             end if;
             else if (to_integer(address) == 1287-1024)
-                SEG7_2 <= '1'
+                HEX2 <= '1'
             end if;
             else if (to_integer(address) == 1288-1024)
-                SEG7_3 <= '1'
+                HEX3 <= '1'
             end if;
             else if (to_integer(address) == 1289-1024)
-                SEG7_4 <= '1'
+                HEX4 <= '1'
             end if;
             else if (to_integer(address) == 1290-1024)
-                SEG7_5 <= '1'
+                HEX5 <= '1'
             end if;
             else if (to_integer(address) == 1291-1024)
                 BUT <= '1'
