@@ -4,24 +4,24 @@ use ieee.numeric_std.all;
 
 entity RAM is
    generic (
-         dataWidth: natural := 8;
-         addrWidth: natural := 8
+         data_width: natural := 8;
+         addr_width: natural := 8
     );
     port
     (
-        addr     : in std_logic_vector(addrWidth-1 downto 0);
+        addr     : in std_logic_vector(addr_width-1 downto 0);
         we, re   : in std_logic;
         enable   : in std_logic;
         clk      : in std_logic;
-        inp      : in std_logic_vector(dataWidth-1 downto 0);
-        outp     : out std_logic_vector(dataWidth-1 downto 0)
+        inp      : in std_logic_vector(data_width-1 downto 0);
+        outp     : out std_logic_vector(data_width-1 downto 0)
     );
 end entity;
 
 architecture rtl of RAM is
     -- Build a 2-D array type for the RAM
-    subtype word_t is std_logic_vector(dataWidth-1 downto 0);
-    type memory_t is array((2**addrWidth-1) downto 0) of word_t;
+    subtype word_t is std_logic_vector(data_width-1 downto 0);
+    type memory_t is array((2**addr_width-1) downto 0) of word_t;
 
     -- Declare the RAM signal.
     signal ram : memory_t;

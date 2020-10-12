@@ -5,7 +5,7 @@ use ieee.numeric_std.all;
 entity baseTempo is
 generic (divisor : natural := 8);
     port(
-      clk      :   in std_logic;
+      clk       :   in std_logic;
       saida_clk :   out std_logic);
 end entity;
 

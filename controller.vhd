@@ -10,12 +10,12 @@ entity controller is
     );
     port
     (
-        opcode :                                in std_logic_vector((data_width-1) downto 0);
+        opcode :                                in std_logic_vector((opcode_width-1) downto 0);
         romRX, romRY, romRZ :                   in std_logic_vector((regs_addr-1) downto 0);
-        flag_zero, flag_ng :                    in std_logic;
+        flag_zero, flag_neg :                   in std_logic;
         RX, RY, RZ :                            out std_logic_vector((regs_addr-1) downto 0) := "000";
         enableRX, RAM_read, RAM_write ;         out std_logic := '0';
-        comandULA, enableRegis :                out std_logic_vector(2 downto 0) := "000"
+        comandULA :                             out std_logic_vector(2 downto 0) := "000"
         mux_jmp, mux_mem_ime, mux_ULA_mem_ime : out std_logic := '0'
     );
 end entity;
@@ -73,23 +73,23 @@ architecture rtl of controller is
             mux_jmp <= '1';
             enableRX <= '0';
         end if;
-        else if (opcode == "01110" and flag_zero = '1' and flag_ng = '1') -- jle
+        else if (opcode == "01110" and flag_zero = '1' and flag_neg = '1') -- jle
             mux_jmp <= '1';
             enableRX <= '0';
         end if;
-        else if (opcode == "01111" and flag_zero = '1' and flag_ng = '0') -- jl
+        else if (opcode == "01111" and flag_zero = '1' and flag_neg = '0') -- jl
             mux_jmp <= '1';
             enableRX <= '0';
         end if;
-        else if (opcode == "10000" and flag_zero = '0' and flag_ng = '0') -- jg
+        else if (opcode == "10000" and flag_zero = '0' and flag_neg = '0') -- jg
             mux_jmp <= '1';
             enableRX <= '0';
         end if;
-        else if (opcode == "10001" and flag_zero = '1' and flag_ng = '0') -- jge
+        else if (opcode == "10001" and flag_zero = '1' and flag_neg = '0') -- jge
             mux_jmp <= '1';
             enableRX <= '0';
         end if;
-        else if (opcode == "10010" and flag_zero = '1' and flag_ng = '0') -- je
+        else if (opcode == "10010" and flag_zero = '1' and flag_neg = '0') -- je
             mux_jmp <= '1';
             enableRX <= '0';
         end if;
