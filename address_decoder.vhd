@@ -20,7 +20,7 @@ end entity;
 
 architecture rtl of address_decoder is
     begin
-        if (opcode == "01010" or opcode == "01011") -- ld
+        if (opcode == "01010" or opcode == "01011") -- ld/st
             if (to_integer(address) >= 1024-1024 and to_integer(address) <= 1279-1024)
                 RAM <= '1'
             end if;
