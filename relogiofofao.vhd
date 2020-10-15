@@ -105,7 +105,7 @@ architecture rtl of relogiofofao is
         unidade_controle: entity work.controller
         port map(opcode => opcode,
                  romRX => romRX,
-                 romRY => romRY
+                 romRY => romRY,
                  romRZ => romRZ,
                  flag_zero => flag_zero,
                  flag_neg => flag_neg,

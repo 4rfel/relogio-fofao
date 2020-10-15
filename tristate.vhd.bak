@@ -13,5 +13,5 @@ end entity;
 
 architecture rtl of tristate is
     begin
-        outp <= inp when enable = '1' else "00000000";
+        outp <= inp when enable = '1' else "00000000"
 end architecture;
