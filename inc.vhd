@@ -16,5 +16,5 @@ end entity;
 
 architecture rtl of inc is
     begin
-        outp <= STD_LOGIC_VECTOR(unsigned(A) + unsigned("0000000001"));
+        outp <= STD_LOGIC_VECTOR(unsigned(A) + "0000000001");
 end architecture;

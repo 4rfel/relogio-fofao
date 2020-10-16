@@ -1,5 +1,5 @@
 Analysis & Synthesis report for relogiofofao
-Thu Oct 15 16:10:12 2020
+Thu Oct 15 22:32:47 2020
 Quartus Prime Version 20.1.0 Build 711 06/05/2020 SJ Lite Edition
 
 
@@ -10,7 +10,26 @@ Quartus Prime Version 20.1.0 Build 711 06/05/2020 SJ Lite Edition
   2. Analysis & Synthesis Summary
   3. Analysis & Synthesis Settings
   4. Parallel Compilation
-  5. Analysis & Synthesis Messages
+  5. Analysis & Synthesis Source Files Read
+  6. Analysis & Synthesis Resource Usage Summary
+  7. Analysis & Synthesis Resource Utilization by Entity
+  8. General Register Statistics
+  9. Parameter Settings for User Entity Instance: Top-level Entity: |relogiofofao
+ 10. Parameter Settings for User Entity Instance: mux2x1_10:MUX_jump_component
+ 11. Parameter Settings for User Entity Instance: mux2x1_8:MUX_mem_ime_component
+ 12. Parameter Settings for User Entity Instance: mux2x1_8:MUX_ULA_mem_ime_component
+ 13. Parameter Settings for User Entity Instance: registrador_10:PC
+ 14. Parameter Settings for User Entity Instance: inc:inc_PC
+ 15. Parameter Settings for User Entity Instance: ROM:rom
+ 16. Parameter Settings for User Entity Instance: bancoRegistradores:register_bank
+ 17. Parameter Settings for User Entity Instance: ULA:ula
+ 18. Parameter Settings for User Entity Instance: RAM:ram
+ 19. Parameter Settings for User Entity Instance: address_decoder:decoder
+ 20. Port Connectivity Checks: "address_decoder:decoder"
+ 21. Port Connectivity Checks: "registrador_10:PC"
+ 22. Post-Synthesis Netlist Statistics for Top Partition
+ 23. Elapsed Time Per Partition
+ 24. Analysis & Synthesis Messages
 
 
 
@@ -34,22 +53,27 @@ https://fpgasoftware.intel.com/eula.
 
 
 
-+---------------------------------------------------------------------------+
-; Analysis & Synthesis Summary                                              ;
-+-----------------------------+---------------------------------------------+
-; Analysis & Synthesis Status ; Failed - Thu Oct 15 16:10:12 2020           ;
-; Quartus Prime Version       ; 20.1.0 Build 711 06/05/2020 SJ Lite Edition ;
-; Revision Name               ; relogiofofao                                ;
-; Top-level Entity Name       ; relogiofofao                                ;
-; Family                      ; Cyclone V                                   ;
-; Logic utilization (in ALMs) ; N/A until Partition Merge                   ;
-; Total registers             ; N/A until Partition Merge                   ;
-; Total pins                  ; N/A until Partition Merge                   ;
-; Total virtual pins          ; N/A until Partition Merge                   ;
-; Total block memory bits     ; N/A until Partition Merge                   ;
-; Total PLLs                  ; N/A until Partition Merge                   ;
-; Total DLLs                  ; N/A until Partition Merge                   ;
-+-----------------------------+---------------------------------------------+
++-------------------------------------------------------------------------------+
+; Analysis & Synthesis Summary                                                  ;
++---------------------------------+---------------------------------------------+
+; Analysis & Synthesis Status     ; Successful - Thu Oct 15 22:32:47 2020       ;
+; Quartus Prime Version           ; 20.1.0 Build 711 06/05/2020 SJ Lite Edition ;
+; Revision Name                   ; relogiofofao                                ;
+; Top-level Entity Name           ; relogiofofao                                ;
+; Family                          ; Cyclone V                                   ;
+; Logic utilization (in ALMs)     ; N/A                                         ;
+; Total registers                 ; 0                                           ;
+; Total pins                      ; 67                                          ;
+; Total virtual pins              ; 0                                           ;
+; Total block memory bits         ; 0                                           ;
+; Total DSP Blocks                ; 0                                           ;
+; Total HSSI RX PCSs              ; 0                                           ;
+; Total HSSI PMA RX Deserializers ; 0                                           ;
+; Total HSSI TX PCSs              ; 0                                           ;
+; Total HSSI PMA TX Serializers   ; 0                                           ;
+; Total PLLs                      ; 0                                           ;
+; Total DLLs                      ; 0                                           ;
++---------------------------------+---------------------------------------------+
 
 
 +---------------------------------------------------------------------------------------------------------------------------+
@@ -155,16 +179,268 @@ https://fpgasoftware.intel.com/eula.
 +----------------------------+-------------+
 
 
++-------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Source Files Read                                                                                              ;
++----------------------------------+-----------------+-----------------+----------------------------------------------------+---------+
+; File Name with User-Entered Path ; Used in Netlist ; File Type       ; File Name with Absolute Path                       ; Library ;
++----------------------------------+-----------------+-----------------+----------------------------------------------------+---------+
+; registrador_10.vhd               ; yes             ; User VHDL File  ; /home/arfel/descomp/Projeto/registrador_10.vhd     ;         ;
+; mux2x1_8.vhd                     ; yes             ; User VHDL File  ; /home/arfel/descomp/Projeto/mux2x1_8.vhd           ;         ;
+; mux2x1_10.vhd                    ; yes             ; User VHDL File  ; /home/arfel/descomp/Projeto/mux2x1_10.vhd          ;         ;
+; inc.vhd                          ; yes             ; User VHDL File  ; /home/arfel/descomp/Projeto/inc.vhd                ;         ;
+; ROM.vhd                          ; yes             ; User VHDL File  ; /home/arfel/descomp/Projeto/ROM.vhd                ;         ;
+; address_decoder.vhd              ; yes             ; User VHDL File  ; /home/arfel/descomp/Projeto/address_decoder.vhd    ;         ;
+; controller.vhd                   ; yes             ; User VHDL File  ; /home/arfel/descomp/Projeto/controller.vhd         ;         ;
+; RAM.vhd                          ; yes             ; User VHDL File  ; /home/arfel/descomp/Projeto/RAM.vhd                ;         ;
+; ULA.vhd                          ; yes             ; User VHDL File  ; /home/arfel/descomp/Projeto/ULA.vhd                ;         ;
+; bancoRegistradores.vhd           ; yes             ; User VHDL File  ; /home/arfel/descomp/Projeto/bancoRegistradores.vhd ;         ;
+; relogiofofao.vhd                 ; yes             ; User VHDL File  ; /home/arfel/descomp/Projeto/relogiofofao.vhd       ;         ;
++----------------------------------+-----------------+-----------------+----------------------------------------------------+---------+
+
+
++-----------------------------------------------------+
+; Analysis & Synthesis Resource Usage Summary         ;
++---------------------------------------------+-------+
+; Resource                                    ; Usage ;
++---------------------------------------------+-------+
+; Estimate of Logic utilization (ALMs needed) ; 0     ;
+;                                             ;       ;
+; Combinational ALUT usage for logic          ; 0     ;
+;     -- 7 input functions                    ; 0     ;
+;     -- 6 input functions                    ; 0     ;
+;     -- 5 input functions                    ; 0     ;
+;     -- 4 input functions                    ; 0     ;
+;     -- <=3 input functions                  ; 0     ;
+;                                             ;       ;
+; Dedicated logic registers                   ; 0     ;
+;                                             ;       ;
+; I/O pins                                    ; 67    ;
+;                                             ;       ;
+; Total DSP Blocks                            ; 0     ;
+;                                             ;       ;
+; Maximum fan-out node                        ; SW[0] ;
+; Maximum fan-out                             ; 1     ;
+; Total fan-out                               ; 67    ;
+; Average fan-out                             ; 0.50  ;
++---------------------------------------------+-------+
+
+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                     ;
++----------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+---------------------+--------------+--------------+
+; Compilation Hierarchy Node ; Combinational ALUTs ; Dedicated Logic Registers ; Block Memory Bits ; DSP Blocks ; Pins ; Virtual Pins ; Full Hierarchy Name ; Entity Name  ; Library Name ;
++----------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+---------------------+--------------+--------------+
+; |relogiofofao              ; 0 (0)               ; 0 (0)                     ; 0                 ; 0          ; 67   ; 0            ; |relogiofofao       ; relogiofofao ; work         ;
++----------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+---------------------+--------------+--------------+
+Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
+
+
++------------------------------------------------------+
+; General Register Statistics                          ;
++----------------------------------------------+-------+
+; Statistic                                    ; Value ;
++----------------------------------------------+-------+
+; Total registers                              ; 0     ;
+; Number of registers using Synchronous Clear  ; 0     ;
+; Number of registers using Synchronous Load   ; 0     ;
+; Number of registers using Asynchronous Clear ; 0     ;
+; Number of registers using Asynchronous Load  ; 0     ;
+; Number of registers using Clock Enable       ; 0     ;
+; Number of registers using Preset             ; 0     ;
++----------------------------------------------+-------+
+
+
++------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: Top-level Entity: |relogiofofao ;
++-------------------+-------+--------------------------------------------------+
+; Parameter Name    ; Value ; Type                                             ;
++-------------------+-------+--------------------------------------------------+
+; data_width        ; 8     ; Signed Integer                                   ;
+; opcode_width      ; 5     ; Signed Integer                                   ;
+; regs_addr         ; 3     ; Signed Integer                                   ;
+; address_width     ; 8     ; Signed Integer                                   ;
+; instruction_width ; 16    ; Signed Integer                                   ;
++-------------------+-------+--------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++---------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: mux2x1_10:MUX_jump_component ;
++----------------+-------+--------------------------------------------------+
+; Parameter Name ; Value ; Type                                             ;
++----------------+-------+--------------------------------------------------+
+; data_width     ; 10    ; Signed Integer                                   ;
++----------------+-------+--------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-----------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: mux2x1_8:MUX_mem_ime_component ;
++----------------+-------+----------------------------------------------------+
+; Parameter Name ; Value ; Type                                               ;
++----------------+-------+----------------------------------------------------+
+; data_width     ; 8     ; Signed Integer                                     ;
++----------------+-------+----------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++---------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: mux2x1_8:MUX_ULA_mem_ime_component ;
++----------------+-------+--------------------------------------------------------+
+; Parameter Name ; Value ; Type                                                   ;
++----------------+-------+--------------------------------------------------------+
+; data_width     ; 8     ; Signed Integer                                         ;
++----------------+-------+--------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++----------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: registrador_10:PC ;
++----------------+-------+---------------------------------------+
+; Parameter Name ; Value ; Type                                  ;
++----------------+-------+---------------------------------------+
+; larguradados   ; 10    ; Signed Integer                        ;
++----------------+-------+---------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++---------------------------------------------------------+
+; Parameter Settings for User Entity Instance: inc:inc_PC ;
++----------------+-------+--------------------------------+
+; Parameter Name ; Value ; Type                           ;
++----------------+-------+--------------------------------+
+; data_width     ; 10    ; Signed Integer                 ;
++----------------+-------+--------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++------------------------------------------------------+
+; Parameter Settings for User Entity Instance: ROM:rom ;
++----------------+-------+-----------------------------+
+; Parameter Name ; Value ; Type                        ;
++----------------+-------+-----------------------------+
+; datawidth      ; 16    ; Signed Integer              ;
+; addrwidth      ; 10    ; Signed Integer              ;
++----------------+-------+-----------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: bancoRegistradores:register_bank ;
++----------------+-------+------------------------------------------------------+
+; Parameter Name ; Value ; Type                                                 ;
++----------------+-------+------------------------------------------------------+
+; width_data     ; 8     ; Signed Integer                                       ;
+; regs_addr      ; 3     ; Signed Integer                                       ;
++----------------+-------+------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++------------------------------------------------------+
+; Parameter Settings for User Entity Instance: ULA:ula ;
++----------------+-------+-----------------------------+
+; Parameter Name ; Value ; Type                        ;
++----------------+-------+-----------------------------+
+; data_width     ; 8     ; Signed Integer              ;
++----------------+-------+-----------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++------------------------------------------------------+
+; Parameter Settings for User Entity Instance: RAM:ram ;
++----------------+-------+-----------------------------+
+; Parameter Name ; Value ; Type                        ;
++----------------+-------+-----------------------------+
+; data_width     ; 8     ; Signed Integer              ;
+; addr_width     ; 8     ; Signed Integer              ;
++----------------+-------+-----------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++----------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: address_decoder:decoder ;
++----------------+-------+---------------------------------------------+
+; Parameter Name ; Value ; Type                                        ;
++----------------+-------+---------------------------------------------+
+; opcode_width   ; 5     ; Signed Integer                              ;
+; address_width  ; 8     ; Signed Integer                              ;
++----------------+-------+---------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++---------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "address_decoder:decoder"                                                                 ;
++-----------+--------+----------+-------------------------------------------------------------------------------------+
+; Port      ; Type   ; Severity ; Details                                                                             ;
++-----------+--------+----------+-------------------------------------------------------------------------------------+
+; hex0      ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
+; hex1      ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
+; hex2      ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
+; hex3      ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
+; hex4      ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
+; hex5      ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
+; led0      ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
+; led1      ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
+; but       ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
+; basetempo ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
+; sw0       ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
+; sw1       ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
++-----------+--------+----------+-------------------------------------------------------------------------------------+
+
+
++-----------------------------------------------+
+; Port Connectivity Checks: "registrador_10:PC" ;
++--------+-------+----------+-------------------+
+; Port   ; Type  ; Severity ; Details           ;
++--------+-------+----------+-------------------+
+; enable ; Input ; Info     ; Stuck at VCC      ;
+; rst    ; Input ; Info     ; Stuck at GND      ;
++--------+-------+----------+-------------------+
+
+
++-----------------------------------------------------+
+; Post-Synthesis Netlist Statistics for Top Partition ;
++-----------------------+-----------------------------+
+; Type                  ; Count                       ;
++-----------------------+-----------------------------+
+; arriav_lcell_comb     ; 1                           ;
+;     normal            ; 1                           ;
+;         0 data inputs ; 1                           ;
+; boundary_port         ; 67                          ;
+;                       ;                             ;
+; Max LUT depth         ; 0.00                        ;
+; Average LUT depth     ; 0.00                        ;
++-----------------------+-----------------------------+
+
+
++-------------------------------+
+; Elapsed Time Per Partition    ;
++----------------+--------------+
+; Partition Name ; Elapsed Time ;
++----------------+--------------+
+; Top            ; 00:00:00     ;
++----------------+--------------+
+
+
 +-------------------------------+
 ; Analysis & Synthesis Messages ;
 +-------------------------------+
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 20.1.0 Build 711 06/05/2020 SJ Lite Edition
-    Info: Processing started: Thu Oct 15 16:10:02 2020
+    Info: Processing started: Thu Oct 15 22:32:37 2020
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off relogiofofao -c relogiofofao
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 8 of the 8 processors detected
+Info (12021): Found 2 design units, including 1 entities, in source file registrador_10.vhd
+    Info (12022): Found design unit 1: registrador_10-rtl File: /home/arfel/descomp/Projeto/registrador_10.vhd Line: 15
+    Info (12023): Found entity 1: registrador_10 File: /home/arfel/descomp/Projeto/registrador_10.vhd Line: 4
+Info (12021): Found 2 design units, including 1 entities, in source file mux2x1_8.vhd
+    Info (12022): Found design unit 1: mux2x1_8-rtl File: /home/arfel/descomp/Projeto/mux2x1_8.vhd Line: 14
+    Info (12023): Found entity 1: mux2x1_8 File: /home/arfel/descomp/Projeto/mux2x1_8.vhd Line: 4
+Info (12021): Found 2 design units, including 1 entities, in source file mux2x1_10.vhd
+    Info (12022): Found design unit 1: mux2x1_10-rtl File: /home/arfel/descomp/Projeto/mux2x1_10.vhd Line: 14
+    Info (12023): Found entity 1: mux2x1_10 File: /home/arfel/descomp/Projeto/mux2x1_10.vhd Line: 4
 Info (12021): Found 2 design units, including 1 entities, in source file registrador.vhd
     Info (12022): Found design unit 1: registrador-rtl File: /home/arfel/descomp/Projeto/registrador.vhd Line: 15
     Info (12023): Found entity 1: registrador File: /home/arfel/descomp/Projeto/registrador.vhd Line: 4
@@ -175,23 +451,20 @@ Info (12021): Found 2 design units, including 1 entities, in source file ROM.vhd
     Info (12022): Found design unit 1: ROM-rtl File: /home/arfel/descomp/Projeto/ROM.vhd Line: 18
     Info (12023): Found entity 1: ROM File: /home/arfel/descomp/Projeto/ROM.vhd Line: 5
 Info (12021): Found 2 design units, including 1 entities, in source file tristate.vhd
-    Info (12022): Found design unit 1: tristate-rtl File: /home/arfel/descomp/Projeto/tristate.vhd Line: 14
-    Info (12023): Found entity 1: tristate File: /home/arfel/descomp/Projeto/tristate.vhd Line: 1
+    Info (12022): Found design unit 1: tristate-rtl File: /home/arfel/descomp/Projeto/tristate.vhd Line: 18
+    Info (12023): Found entity 1: tristate File: /home/arfel/descomp/Projeto/tristate.vhd Line: 5
 Info (12021): Found 2 design units, including 1 entities, in source file conversor_7seg.vhd
     Info (12022): Found design unit 1: conversorHex7Seg-comportamento File: /home/arfel/descomp/Projeto/conversor_7seg.vhd Line: 17
     Info (12023): Found entity 1: conversorHex7Seg File: /home/arfel/descomp/Projeto/conversor_7seg.vhd Line: 4
-Error (10500): VHDL syntax error at address_decoder.vhd(24) near text "if";  expecting "begin", or a declaration statement File: /home/arfel/descomp/Projeto/address_decoder.vhd Line: 24
-Info (12021): Found 0 design units, including 0 entities, in source file address_decoder.vhd
-Error (10500): VHDL syntax error at controller.vhd(11) near text ";";  expecting ":", or "," File: /home/arfel/descomp/Projeto/controller.vhd Line: 11
-Error (10523): Ignored construct controller at controller.vhd(5) due to previous errors File: /home/arfel/descomp/Projeto/controller.vhd Line: 5
-Error (10500): VHDL syntax error at controller.vhd(46) near text "if";  expecting "begin", or a declaration statement File: /home/arfel/descomp/Projeto/controller.vhd Line: 46
-Info (12021): Found 0 design units, including 0 entities, in source file controller.vhd
+Info (12021): Found 2 design units, including 1 entities, in source file address_decoder.vhd
+    Info (12022): Found design unit 1: address_decoder-rtl File: /home/arfel/descomp/Projeto/address_decoder.vhd Line: 21
+    Info (12023): Found entity 1: address_decoder File: /home/arfel/descomp/Projeto/address_decoder.vhd Line: 5
+Info (12021): Found 2 design units, including 1 entities, in source file controller.vhd
+    Info (12022): Found design unit 1: controller-rtl File: /home/arfel/descomp/Projeto/controller.vhd Line: 16
+    Info (12023): Found entity 1: controller File: /home/arfel/descomp/Projeto/controller.vhd Line: 5
 Info (12021): Found 2 design units, including 1 entities, in source file baseTempo.vhd
     Info (12022): Found design unit 1: baseTempo-divInteiro File: /home/arfel/descomp/Projeto/baseTempo.vhd Line: 15
     Info (12023): Found entity 1: baseTempo File: /home/arfel/descomp/Projeto/baseTempo.vhd Line: 5
-Info (12021): Found 2 design units, including 1 entities, in source file mux2x1.vhd
-    Info (12022): Found design unit 1: mux2x1-rtl File: /home/arfel/descomp/Projeto/mux2x1.vhd Line: 14
-    Info (12023): Found entity 1: mux2x1 File: /home/arfel/descomp/Projeto/mux2x1.vhd Line: 4
 Info (12021): Found 2 design units, including 1 entities, in source file RAM.vhd
     Info (12022): Found design unit 1: RAM-rtl File: /home/arfel/descomp/Projeto/RAM.vhd Line: 21
     Info (12023): Found entity 1: RAM File: /home/arfel/descomp/Projeto/RAM.vhd Line: 5
@@ -205,10 +478,115 @@ Info (12021): Found 2 design units, including 1 entities, in source file bancoRe
 Info (12021): Found 2 design units, including 1 entities, in source file relogiofofao.vhd
     Info (12022): Found design unit 1: relogiofofao-rtl File: /home/arfel/descomp/Projeto/relogiofofao.vhd Line: 22
     Info (12023): Found entity 1: relogiofofao File: /home/arfel/descomp/Projeto/relogiofofao.vhd Line: 4
-Error: Quartus Prime Analysis & Synthesis was unsuccessful. 4 errors, 2 warnings
-    Error: Peak virtual memory: 471 megabytes
-    Error: Processing ended: Thu Oct 15 16:10:12 2020
-    Error: Elapsed time: 00:00:10
-    Error: Total CPU time (on all processors): 00:00:27
+Info (12127): Elaborating entity "relogiofofao" for the top level hierarchy
+Warning (10541): VHDL Signal Declaration warning at relogiofofao.vhd(17): used implicit default value for signal "HEX0" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: /home/arfel/descomp/Projeto/relogiofofao.vhd Line: 17
+Warning (10541): VHDL Signal Declaration warning at relogiofofao.vhd(17): used implicit default value for signal "HEX1" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: /home/arfel/descomp/Projeto/relogiofofao.vhd Line: 17
+Warning (10541): VHDL Signal Declaration warning at relogiofofao.vhd(17): used implicit default value for signal "HEX2" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: /home/arfel/descomp/Projeto/relogiofofao.vhd Line: 17
+Warning (10541): VHDL Signal Declaration warning at relogiofofao.vhd(17): used implicit default value for signal "HEX3" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: /home/arfel/descomp/Projeto/relogiofofao.vhd Line: 17
+Warning (10541): VHDL Signal Declaration warning at relogiofofao.vhd(17): used implicit default value for signal "HEX4" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: /home/arfel/descomp/Projeto/relogiofofao.vhd Line: 17
+Warning (10541): VHDL Signal Declaration warning at relogiofofao.vhd(17): used implicit default value for signal "HEX5" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: /home/arfel/descomp/Projeto/relogiofofao.vhd Line: 17
+Warning (10541): VHDL Signal Declaration warning at relogiofofao.vhd(18): used implicit default value for signal "LED" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: /home/arfel/descomp/Projeto/relogiofofao.vhd Line: 18
+Warning (10036): Verilog HDL or VHDL warning at relogiofofao.vhd(25): object "enableLED0" assigned a value but never read File: /home/arfel/descomp/Projeto/relogiofofao.vhd Line: 25
+Warning (10036): Verilog HDL or VHDL warning at relogiofofao.vhd(26): object "enableHEX0" assigned a value but never read File: /home/arfel/descomp/Projeto/relogiofofao.vhd Line: 26
+Warning (10036): Verilog HDL or VHDL warning at relogiofofao.vhd(26): object "enableHEX1" assigned a value but never read File: /home/arfel/descomp/Projeto/relogiofofao.vhd Line: 26
+Warning (10036): Verilog HDL or VHDL warning at relogiofofao.vhd(26): object "enableHEX2" assigned a value but never read File: /home/arfel/descomp/Projeto/relogiofofao.vhd Line: 26
+Warning (10036): Verilog HDL or VHDL warning at relogiofofao.vhd(27): object "enableHEX3" assigned a value but never read File: /home/arfel/descomp/Projeto/relogiofofao.vhd Line: 27
+Warning (10036): Verilog HDL or VHDL warning at relogiofofao.vhd(27): object "enableHEX4" assigned a value but never read File: /home/arfel/descomp/Projeto/relogiofofao.vhd Line: 27
+Warning (10036): Verilog HDL or VHDL warning at relogiofofao.vhd(27): object "enableHEX5" assigned a value but never read File: /home/arfel/descomp/Projeto/relogiofofao.vhd Line: 27
+Warning (10036): Verilog HDL or VHDL warning at relogiofofao.vhd(28): object "enableSW0" assigned a value but never read File: /home/arfel/descomp/Projeto/relogiofofao.vhd Line: 28
+Warning (10036): Verilog HDL or VHDL warning at relogiofofao.vhd(28): object "enableSW1" assigned a value but never read File: /home/arfel/descomp/Projeto/relogiofofao.vhd Line: 28
+Warning (10036): Verilog HDL or VHDL warning at relogiofofao.vhd(28): object "enableBUT" assigned a value but never read File: /home/arfel/descomp/Projeto/relogiofofao.vhd Line: 28
+Warning (10036): Verilog HDL or VHDL warning at relogiofofao.vhd(29): object "enable_base_tempo" assigned a value but never read File: /home/arfel/descomp/Projeto/relogiofofao.vhd Line: 29
+Warning (10036): Verilog HDL or VHDL warning at relogiofofao.vhd(29): object "enableLED1" assigned a value but never read File: /home/arfel/descomp/Projeto/relogiofofao.vhd Line: 29
+Info (12128): Elaborating entity "mux2x1_10" for hierarchy "mux2x1_10:MUX_jump_component" File: /home/arfel/descomp/Projeto/relogiofofao.vhd Line: 52
+Info (12128): Elaborating entity "mux2x1_8" for hierarchy "mux2x1_8:MUX_mem_ime_component" File: /home/arfel/descomp/Projeto/relogiofofao.vhd Line: 58
+Info (12128): Elaborating entity "registrador_10" for hierarchy "registrador_10:PC" File: /home/arfel/descomp/Projeto/relogiofofao.vhd Line: 71
+Info (12128): Elaborating entity "inc" for hierarchy "inc:inc_PC" File: /home/arfel/descomp/Projeto/relogiofofao.vhd Line: 78
+Info (12128): Elaborating entity "ROM" for hierarchy "ROM:rom" File: /home/arfel/descomp/Projeto/relogiofofao.vhd Line: 82
+Warning (10541): VHDL Signal Declaration warning at ROM.vhd(21): used implicit default value for signal "content" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: /home/arfel/descomp/Projeto/ROM.vhd Line: 21
+Info (12128): Elaborating entity "bancoRegistradores" for hierarchy "bancoRegistradores:register_bank" File: /home/arfel/descomp/Projeto/relogiofofao.vhd Line: 88
+Info (12128): Elaborating entity "ULA" for hierarchy "ULA:ula" File: /home/arfel/descomp/Projeto/relogiofofao.vhd Line: 98
+Info (12128): Elaborating entity "controller" for hierarchy "controller:unidade_controle" File: /home/arfel/descomp/Projeto/relogiofofao.vhd Line: 106
+Info (12128): Elaborating entity "RAM" for hierarchy "RAM:ram" File: /home/arfel/descomp/Projeto/relogiofofao.vhd Line: 124
+Info (12128): Elaborating entity "address_decoder" for hierarchy "address_decoder:decoder" File: /home/arfel/descomp/Projeto/relogiofofao.vhd Line: 133
+Warning (13024): Output pins are stuck at VCC or GND
+    Warning (13410): Pin "HEX0[0]" is stuck at GND File: /home/arfel/descomp/Projeto/relogiofofao.vhd Line: 17
+    Warning (13410): Pin "HEX0[1]" is stuck at GND File: /home/arfel/descomp/Projeto/relogiofofao.vhd Line: 17
+    Warning (13410): Pin "HEX0[2]" is stuck at GND File: /home/arfel/descomp/Projeto/relogiofofao.vhd Line: 17
+    Warning (13410): Pin "HEX0[3]" is stuck at GND File: /home/arfel/descomp/Projeto/relogiofofao.vhd Line: 17
+    Warning (13410): Pin "HEX0[4]" is stuck at GND File: /home/arfel/descomp/Projeto/relogiofofao.vhd Line: 17
+    Warning (13410): Pin "HEX0[5]" is stuck at GND File: /home/arfel/descomp/Projeto/relogiofofao.vhd Line: 17
+    Warning (13410): Pin "HEX0[6]" is stuck at GND File: /home/arfel/descomp/Projeto/relogiofofao.vhd Line: 17
+    Warning (13410): Pin "HEX1[0]" is stuck at GND File: /home/arfel/descomp/Projeto/relogiofofao.vhd Line: 17
+    Warning (13410): Pin "HEX1[1]" is stuck at GND File: /home/arfel/descomp/Projeto/relogiofofao.vhd Line: 17
+    Warning (13410): Pin "HEX1[2]" is stuck at GND File: /home/arfel/descomp/Projeto/relogiofofao.vhd Line: 17
+    Warning (13410): Pin "HEX1[3]" is stuck at GND File: /home/arfel/descomp/Projeto/relogiofofao.vhd Line: 17
+    Warning (13410): Pin "HEX1[4]" is stuck at GND File: /home/arfel/descomp/Projeto/relogiofofao.vhd Line: 17
+    Warning (13410): Pin "HEX1[5]" is stuck at GND File: /home/arfel/descomp/Projeto/relogiofofao.vhd Line: 17
+    Warning (13410): Pin "HEX1[6]" is stuck at GND File: /home/arfel/descomp/Projeto/relogiofofao.vhd Line: 17
+    Warning (13410): Pin "HEX2[0]" is stuck at GND File: /home/arfel/descomp/Projeto/relogiofofao.vhd Line: 17
+    Warning (13410): Pin "HEX2[1]" is stuck at GND File: /home/arfel/descomp/Projeto/relogiofofao.vhd Line: 17
+    Warning (13410): Pin "HEX2[2]" is stuck at GND File: /home/arfel/descomp/Projeto/relogiofofao.vhd Line: 17
+    Warning (13410): Pin "HEX2[3]" is stuck at GND File: /home/arfel/descomp/Projeto/relogiofofao.vhd Line: 17
+    Warning (13410): Pin "HEX2[4]" is stuck at GND File: /home/arfel/descomp/Projeto/relogiofofao.vhd Line: 17
+    Warning (13410): Pin "HEX2[5]" is stuck at GND File: /home/arfel/descomp/Projeto/relogiofofao.vhd Line: 17
+    Warning (13410): Pin "HEX2[6]" is stuck at GND File: /home/arfel/descomp/Projeto/relogiofofao.vhd Line: 17
+    Warning (13410): Pin "HEX3[0]" is stuck at GND File: /home/arfel/descomp/Projeto/relogiofofao.vhd Line: 17
+    Warning (13410): Pin "HEX3[1]" is stuck at GND File: /home/arfel/descomp/Projeto/relogiofofao.vhd Line: 17
+    Warning (13410): Pin "HEX3[2]" is stuck at GND File: /home/arfel/descomp/Projeto/relogiofofao.vhd Line: 17
+    Warning (13410): Pin "HEX3[3]" is stuck at GND File: /home/arfel/descomp/Projeto/relogiofofao.vhd Line: 17
+    Warning (13410): Pin "HEX3[4]" is stuck at GND File: /home/arfel/descomp/Projeto/relogiofofao.vhd Line: 17
+    Warning (13410): Pin "HEX3[5]" is stuck at GND File: /home/arfel/descomp/Projeto/relogiofofao.vhd Line: 17
+    Warning (13410): Pin "HEX3[6]" is stuck at GND File: /home/arfel/descomp/Projeto/relogiofofao.vhd Line: 17
+    Warning (13410): Pin "HEX4[0]" is stuck at GND File: /home/arfel/descomp/Projeto/relogiofofao.vhd Line: 17
+    Warning (13410): Pin "HEX4[1]" is stuck at GND File: /home/arfel/descomp/Projeto/relogiofofao.vhd Line: 17
+    Warning (13410): Pin "HEX4[2]" is stuck at GND File: /home/arfel/descomp/Projeto/relogiofofao.vhd Line: 17
+    Warning (13410): Pin "HEX4[3]" is stuck at GND File: /home/arfel/descomp/Projeto/relogiofofao.vhd Line: 17
+    Warning (13410): Pin "HEX4[4]" is stuck at GND File: /home/arfel/descomp/Projeto/relogiofofao.vhd Line: 17
+    Warning (13410): Pin "HEX4[5]" is stuck at GND File: /home/arfel/descomp/Projeto/relogiofofao.vhd Line: 17
+    Warning (13410): Pin "HEX4[6]" is stuck at GND File: /home/arfel/descomp/Projeto/relogiofofao.vhd Line: 17
+    Warning (13410): Pin "HEX5[0]" is stuck at GND File: /home/arfel/descomp/Projeto/relogiofofao.vhd Line: 17
+    Warning (13410): Pin "HEX5[1]" is stuck at GND File: /home/arfel/descomp/Projeto/relogiofofao.vhd Line: 17
+    Warning (13410): Pin "HEX5[2]" is stuck at GND File: /home/arfel/descomp/Projeto/relogiofofao.vhd Line: 17
+    Warning (13410): Pin "HEX5[3]" is stuck at GND File: /home/arfel/descomp/Projeto/relogiofofao.vhd Line: 17
+    Warning (13410): Pin "HEX5[4]" is stuck at GND File: /home/arfel/descomp/Projeto/relogiofofao.vhd Line: 17
+    Warning (13410): Pin "HEX5[5]" is stuck at GND File: /home/arfel/descomp/Projeto/relogiofofao.vhd Line: 17
+    Warning (13410): Pin "HEX5[6]" is stuck at GND File: /home/arfel/descomp/Projeto/relogiofofao.vhd Line: 17
+    Warning (13410): Pin "LED[0]" is stuck at GND File: /home/arfel/descomp/Projeto/relogiofofao.vhd Line: 18
+    Warning (13410): Pin "LED[1]" is stuck at GND File: /home/arfel/descomp/Projeto/relogiofofao.vhd Line: 18
+    Warning (13410): Pin "LED[2]" is stuck at GND File: /home/arfel/descomp/Projeto/relogiofofao.vhd Line: 18
+    Warning (13410): Pin "LED[3]" is stuck at GND File: /home/arfel/descomp/Projeto/relogiofofao.vhd Line: 18
+    Warning (13410): Pin "LED[4]" is stuck at GND File: /home/arfel/descomp/Projeto/relogiofofao.vhd Line: 18
+    Warning (13410): Pin "LED[5]" is stuck at GND File: /home/arfel/descomp/Projeto/relogiofofao.vhd Line: 18
+    Warning (13410): Pin "LED[6]" is stuck at GND File: /home/arfel/descomp/Projeto/relogiofofao.vhd Line: 18
+    Warning (13410): Pin "LED[7]" is stuck at GND File: /home/arfel/descomp/Projeto/relogiofofao.vhd Line: 18
+    Warning (13410): Pin "LED[8]" is stuck at GND File: /home/arfel/descomp/Projeto/relogiofofao.vhd Line: 18
+    Warning (13410): Pin "LED[9]" is stuck at GND File: /home/arfel/descomp/Projeto/relogiofofao.vhd Line: 18
+Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
+    Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
+Warning (21074): Design contains 15 input pin(s) that do not drive logic
+    Warning (15610): No output dependent on input pin "SW[0]" File: /home/arfel/descomp/Projeto/relogiofofao.vhd Line: 14
+    Warning (15610): No output dependent on input pin "SW[1]" File: /home/arfel/descomp/Projeto/relogiofofao.vhd Line: 14
+    Warning (15610): No output dependent on input pin "SW[2]" File: /home/arfel/descomp/Projeto/relogiofofao.vhd Line: 14
+    Warning (15610): No output dependent on input pin "SW[3]" File: /home/arfel/descomp/Projeto/relogiofofao.vhd Line: 14
+    Warning (15610): No output dependent on input pin "SW[4]" File: /home/arfel/descomp/Projeto/relogiofofao.vhd Line: 14
+    Warning (15610): No output dependent on input pin "SW[5]" File: /home/arfel/descomp/Projeto/relogiofofao.vhd Line: 14
+    Warning (15610): No output dependent on input pin "SW[6]" File: /home/arfel/descomp/Projeto/relogiofofao.vhd Line: 14
+    Warning (15610): No output dependent on input pin "SW[7]" File: /home/arfel/descomp/Projeto/relogiofofao.vhd Line: 14
+    Warning (15610): No output dependent on input pin "SW[8]" File: /home/arfel/descomp/Projeto/relogiofofao.vhd Line: 14
+    Warning (15610): No output dependent on input pin "SW[9]" File: /home/arfel/descomp/Projeto/relogiofofao.vhd Line: 14
+    Warning (15610): No output dependent on input pin "BUT[0]" File: /home/arfel/descomp/Projeto/relogiofofao.vhd Line: 15
+    Warning (15610): No output dependent on input pin "BUT[1]" File: /home/arfel/descomp/Projeto/relogiofofao.vhd Line: 15
+    Warning (15610): No output dependent on input pin "BUT[2]" File: /home/arfel/descomp/Projeto/relogiofofao.vhd Line: 15
+    Warning (15610): No output dependent on input pin "BUT[3]" File: /home/arfel/descomp/Projeto/relogiofofao.vhd Line: 15
+    Warning (15610): No output dependent on input pin "clk" File: /home/arfel/descomp/Projeto/relogiofofao.vhd Line: 16
+Info (21057): Implemented 67 device resources after synthesis - the final resource count might be different
+    Info (21058): Implemented 15 input pins
+    Info (21059): Implemented 52 output pins
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 91 warnings
+    Info: Peak virtual memory: 483 megabytes
+    Info: Processing ended: Thu Oct 15 22:32:47 2020
+    Info: Elapsed time: 00:00:10
+    Info: Total CPU time (on all processors): 00:00:29
 
 

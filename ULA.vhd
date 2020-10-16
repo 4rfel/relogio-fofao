@@ -27,6 +27,7 @@ architecture rtl of ULA is
    signal op_not :    STD_LOGIC_VECTOR((data_width-1) downto 0);
    signal incA :      STD_LOGIC_VECTOR((data_width-1) downto 0);
    signal decA :      STD_LOGIC_VECTOR((data_width-1) downto 0);
+	signal outpp :     std_logic_vector((data_width-1) downto 0);
 
 
     begin
@@ -39,7 +40,7 @@ architecture rtl of ULA is
       decA      <= STD_LOGIC_VECTOR(unsigned(A) - "00000001");
 
 
-      outp <= add       when (sel = "000") else
+      outpp <= add       when (sel = "000") else
               sub       when (sel = "001") else
               op_and    when (sel = "010") else
               op_or     when (sel = "011") else
@@ -49,8 +50,9 @@ architecture rtl of ULA is
               A         when (sel = "111") else
               A;      -- outra opcao: outp = A
 
-      flag_zero <= '1' when unsigned(outp) = unsigned(zero) else '0';
-      flag_neg <= '1' when signed(outp) <= signed(zero) else '0';
+      flag_zero <= '1' when unsigned(outpp) = unsigned(zero) else '0';
+      flag_neg <= '1' when signed(outpp) <= signed(zero) else '0';
+		outp <= outpp;
 
 
 end architecture;

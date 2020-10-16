@@ -27,6 +27,7 @@ architecture rtl of relogiofofao is
     signal enableHEX3, enableHEX4, enableHEX5 :            std_logic;
     signal enableRAM, enableSW0, enableSW1, enableBUT :    std_logic;
     signal enable_base_tempo, out_base_tempo, enableLED1 : std_logic;
+	 signal flag_zero, flag_neg :                           std_logic;
     signal out_ROM :                                       std_logic_vector((instruction_width-1) downto 0);
     signal opcode :                                        std_logic_vector((opcode_width-1) downto 0);
     signal addrs_mem :                                     std_logic_vector((address_width-1) downto 0);
@@ -35,12 +36,12 @@ architecture rtl of relogiofofao is
     signal romRX, romRY, romRZ, HEX0n, HEX1n, HEX2n :      std_logic_vector(2 downto 0);
     signal HEX3n, HEX4n, HEX5n                      :      std_logic_vector(2 downto 0);
     signal out_mux_ULA_mem_ime, out_mux_mem_ime :          std_logic_vector((data_width-1) downto 0);
-    signal addrs_jmp, out_inc, out_mux_jmp, out_PC:        std_logic_vector(9 down to 0);
+    signal addrs_jmp, out_inc, out_mux_jmp, out_PC:        std_logic_vector(9 downto 0);
     signal out_register_bank, out_ULA :                    std_logic_vector((data_width-1) downto 0);
 
 
     begin
-        opcode <= out_ROM((address_width-1) downto (address_width-opcode));
+        opcode <= out_ROM(15 downto 11);
         addrs_mem <= out_ROM(7 downto 0);
         romRX  <= out_ROM(10 downto 8);
         romRY  <= out_ROM(7 downto 5);
@@ -48,26 +49,26 @@ architecture rtl of relogiofofao is
         imediato  <= out_ROM(7 downto 0);
         addrs_jmp <= out_ROM(10 downto 1);
 
-        MUX_jump: entity work.mux2x1
-        port map(A => out_adder,
+        MUX_jump_component: entity work.mux2x1_10
+        port map(A => out_inc,
                  B =>  addrs_jmp,
                  sel => mux_jmp,
                  outp =>  out_mux_jmp);
 
-        MUX_mem_ime: entity work.mux2x1
+        MUX_mem_ime_component: entity work.mux2x1_8
         port map(A => data_bus_in,
                  B =>  imediato,
                  sel => mux_mem_ime,
                  outp =>  out_mux_mem_ime);
 
 
-        MUX_ULA_mem_ime: entity work.mux2x1
+        MUX_ULA_mem_ime_component: entity work.mux2x1_8
         port map(A => out_mux_mem_ime,
                  B =>  out_ULA,
                  sel => mux_ULA_mem_ime,
                  outp =>  out_mux_ULA_mem_ime);
 
-        PC: entity work.registrador
+        PC: entity work.registrador_10
         port map(DIN => out_mux_jmp,
                  DOUT => out_PC,
                  ENABLE => '1',
@@ -132,122 +133,122 @@ architecture rtl of relogiofofao is
         decoder: entity work.address_decoder
         port map(opcode => opcode,
                  address => addrs_mem,
-                 HEX0 => HEX0,
-                 HEX1 => HEX1,
-                 HEX2 => HEX2,
-                 HEX3 => HEX3,
-                 HEX4 => HEX4,
-                 HEX5 => HEX5,
-                 LED0 => LED0,
-                 LED1 => LED1,
+                 HEX0 => enableHEX0,
+                 HEX1 => enableHEX1,
+                 HEX2 => enableHEX2,
+                 HEX3 => enableHEX3,
+                 HEX4 => enableHEX4,
+                 HEX5 => enableHEX5,
+                 LED0 => enableLED0,
+                 LED1 => enableLED1,
                  RAM => enableRAM,
                  BUT => enableBUT,
                  BaseTempo => enable_base_tempo,
                  SW0 => enableSW0,
                  SW1 => enableSW1);
 
-        tristate_but: entity work.tristate
-        port map(inp => "0000" & BUT,
-                 enable => enableBUT,
-                 outp => data_bus_in);
-        
-        tristate_SW0: entity work.tristate
-        port map(inp => "000000" & SW(9 downto 8),
-                 enable => enableSW0,
-                 outp => data_bus_in);
-
-        tristate_SW1: entity work.tristate
-        port map(inp => SW(7 downto 0),
-                 enable => enableSW1,
-                 outp => data_bus_in);
-
-        tristate_base_tempo: entity work.tristate
-        port map(inp => out_base_tempo,
-                 enable => enable_base_tempo,
-                 outp => data_bus_in);
-        
-        base_tempo: entity work.baseTempo
-        port map(clk => clk,
-                 outp => out_base_tempo);
-        
-        register_led0: entity work.registrador
-        port map(DIN => data_bus_out,
-                 DOUT => "000000" & LEDS(9 downto 8),
-                 ENABLE => enable_LED0,
-                 CLK => clk,
-                 RST => '0');
-        
-        register_led1: entity work.registrador
-        port map(DIN => data_bus_out,
-                 DOUT => LEDS(7 downto 0),
-                 ENABLE => enable_LED1,
-                 CLK => clk,
-                 RST => '0');
-
-        conversorhex0: entity work.conversorHex7Seg
-        port map(dadoHex => data_bus_out(6 downto 0),
-                 saida7seg => HEX0n);
-            
-        conversorhex1: entity work.conversorHex7Seg
-        port map(dadoHex => data_bus_out(6 downto 0),
-                 saida7seg => HEX1n);
-                 
-        conversorhex2: entity work.conversorHex7Seg
-        port map(dadoHex => data_bus_out(6 downto 0),
-                 saida7seg => HEX2n);
-                 
-        conversorhex3: entity work.conversorHex7Seg
-        port map(dadoHex => data_bus_out(6 downto 0),
-                 saida7seg => HEX3n);
-                 
-        conversorhex4: entity work.conversorHex7Seg
-        port map(dadoHex => data_bus_out(6 downto 0),
-                 saida7seg => HEX4n);
-                 
-        conversorhex5: entity work.conversorHex7Seg
-        port map(dadoHex => data_bus_out(6 downto 0),
-                 saida7seg => HEX5n);
-
-        register_hex0: entity work.registrador
-        port map(DIN => "0" & HEX0n,
-                 DOUT => HEX0,
-                 ENABLE => enable_HEX0,
-                 CLK => clk,
-                 RST => '0');
-        
-        register_hex1: entity work.registrador
-        port map(DIN => "0" & HEX1n,
-                DOUT => HEX1,
-                ENABLE => enable_HEX1,
-                CLK => clk,
-                RST => '0');
-        
-        register_hex2: entity work.registrador
-        port map(DIN => "0" & HEX2n,
-                 DOUT => HEX2,
-                 ENABLE => enable_HEX2,
-                 CLK => clk,
-                 RST => '0');
-        
-        register_hex3: entity work.registrador
-        port map(DIN => "0" & HEX3n,
-                DOUT => HEX3,
-                ENABLE => enable_HEX3,
-                CLK => clk,
-                RST => '0');
-        
-        register_hex4: entity work.registrador
-        port map(DIN => "0" & HEX4n,
-                 DOUT => HEX4,
-                 ENABLE => enable_HEX4,
-                 CLK => clk,
-                 RST => '0');
-        
-        register_hex5: entity work.registrador
-        port map(DIN => "0" & HEX5n,
-                DOUT => HEX5,
-                ENABLE => enable_HEX5,
-                CLK => clk,
-                RST => '0');
+--        tristate_but: entity work.tristate
+--        port map(inp => "0000" & BUT,
+--                 enable => enableBUT,
+--                 outp => data_bus_in);
+--        
+--        tristate_SW0: entity work.tristate
+--        port map(inp => "000000" & SW(9 downto 8),
+--                 enable => enableSW0,
+--                 outp => data_bus_in);
+--
+--        tristate_SW1: entity work.tristate
+--        port map(inp => SW(7 downto 0),
+--                 enable => enableSW1,
+--                 outp => data_bus_in);
+--
+--        tristate_base_tempo: entity work.tristate
+--        port map(inp => "0000000" & out_base_tempo,
+--                 enable => enable_base_tempo,
+--                 outp => data_bus_in);
+--        
+--        base_tempo: entity work.baseTempo
+--        port map(clk => clk,
+--                 saida_clk => out_base_tempo);
+--        
+--        register_led0: entity work.registrador
+--        port map(DIN => data_bus_out,
+--                 DOUT <= "000000" & LED(9 downto 8),
+--                 ENABLE => enable_LED0,
+--                 CLK => clk,
+--                 RST => '0');
+--        
+--        register_led1: entity work.registrador
+--        port map(DIN => data_bus_out,
+--                 DOUT => LED(7 downto 0),
+--                 ENABLE => enable_LED1,
+--                 CLK => clk,
+--                 RST => '0');
+--
+--        conversorhex0: entity work.conversorHex7Seg
+--        port map(dadoHex => data_bus_out(6 downto 0),
+--                 saida7seg => HEX0n);
+--            
+--        conversorhex1: entity work.conversorHex7Seg
+--        port map(dadoHex => data_bus_out(6 downto 0),
+--                 saida7seg => HEX1n);
+--                 
+--        conversorhex2: entity work.conversorHex7Seg
+--        port map(dadoHex => data_bus_out(6 downto 0),
+--                 saida7seg => HEX2n);
+--                 
+--        conversorhex3: entity work.conversorHex7Seg
+--        port map(dadoHex => data_bus_out(6 downto 0),
+--                 saida7seg => HEX3n);
+--                 
+--        conversorhex4: entity work.conversorHex7Seg
+--        port map(dadoHex => data_bus_out(6 downto 0),
+--                 saida7seg => HEX4n);
+--                 
+--        conversorhex5: entity work.conversorHex7Seg
+--        port map(dadoHex => data_bus_out(6 downto 0),
+--                 saida7seg => HEX5n);
+--
+--        register_hex0: entity work.registrador
+--        port map(DIN => "0" & HEX0n,
+--                 DOUT => HEX0,
+--                 ENABLE => enable_HEX0,
+--                 CLK => clk,
+--                 RST => '0');
+--        
+--        register_hex1: entity work.registrador
+--        port map(DIN => "0" & HEX1n,
+--                DOUT => HEX1,
+--                ENABLE => enable_HEX1,
+--                CLK => clk,
+--                RST => '0');
+--        
+--        register_hex2: entity work.registrador
+--        port map(DIN => "0" & HEX2n,
+--                 DOUT => HEX2,
+--                 ENABLE => enable_HEX2,
+--                 CLK => clk,
+--                 RST => '0');
+--        
+--        register_hex3: entity work.registrador
+--        port map(DIN => "0" & HEX3n,
+--                DOUT => HEX3,
+--                ENABLE => enable_HEX3,
+--                CLK => clk,
+--                RST => '0');
+--        
+--        register_hex4: entity work.registrador
+--        port map(DIN => "0" & HEX4n,
+--                 DOUT => HEX4,
+--                 ENABLE => enable_HEX4,
+--                 CLK => clk,
+--                 RST => '0');
+--        
+--        register_hex5: entity work.registrador
+--        port map(DIN => "0" & HEX5n,
+--                DOUT => HEX5,
+--                ENABLE => enable_HEX5,
+--                CLK => clk,
+--                RST => '0');
 
 end architecture;
