@@ -3,23 +3,25 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;          -- Biblioteca IEEE para funções aritméticas
 
 entity address_decoder is
-    generic
-    (
-        opcode_width  : natural := 5;
-        address_width : natural := 8
-    );
-    port
-    (
-        opcode :                                         in std_logic_vector(4 downto 0);
-        address :                                        in std_logic_vector(7 downto 0);
-        HEX0, HEX1, HEX2, HEX3, HEX4, HEX5 :             out std_logic := '0';
-        LED0, LED1, RAM :                                out std_logic := '0';
-        BUT, BaseTempo, SW0, SW1 :                       out std_logic := '0'
-    );
+	generic
+	(
+		opcode_width  : natural := 5;
+		address_width : natural := 8
+	);
+	port
+	(
+		opcode :                                         in std_logic_vector(4 downto 0);
+		address :                                        in std_logic_vector(7 downto 0);
+		HEX0, HEX1, HEX2, HEX3, HEX4, HEX5 :             out std_logic := '0';
+		LED0, LED1, RAM :                                out std_logic := '0';
+		BUT, BaseTempo, SW0, SW1 :                       out std_logic := '0'
+	);
 end entity;
 
 architecture rtl of address_decoder is
-    begin
+	begin
+			-- check if the opcode is one where we need to enable an IO and if it is
+			-- enable the requested IO
 			RAM <= '1' when (opcode="01010" or opcode="01011") and (unsigned(address) >= 0 and unsigned(address) <= 220) else '0';
 			BaseTempo <= '1' when (opcode="01010" or opcode="01011") and (unsigned(address) = 221) else '0';
 			LED0 <= '1' when (opcode="01010" or opcode="01011") and (unsigned(address) = 222) else '0';
