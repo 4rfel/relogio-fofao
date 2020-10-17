@@ -15,7 +15,7 @@ entity relogio is
 		KEY : in std_logic_vector(3 downto 0);
 		clk : in std_logic;
 		HEX0, HEX1, HEX2, HEX3, HEX4, HEX5 : out std_logic_vector(6 downto 0);
-		LED                                : out std_logic_vector(9 downto 0)
+		LEDR                               : out std_logic_vector(9 downto 0)
 	);
 end entity;
 
@@ -194,7 +194,7 @@ architecture rtl of relogio is
 				 CLK => clk,
 				 RST => '0');
 					  
-			LED <= led_signal;
+			LEDR <= led_signal;
 
 		conversorhex0: entity work.conversorHex7Seg
 		port map(dadoHex => data_bus_out(3 downto 0),
