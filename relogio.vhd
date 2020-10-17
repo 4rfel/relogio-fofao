@@ -12,7 +12,7 @@ entity relogio is
 	);
 	port(
 		SW  : in std_logic_vector(9 downto 0);
-		BUT : in std_logic_vector(3 downto 0);
+		KEY : in std_logic_vector(3 downto 0);
 		clk : in std_logic;
 		HEX0, HEX1, HEX2, HEX3, HEX4, HEX5 : out std_logic_vector(6 downto 0);
 		LED                                : out std_logic_vector(9 downto 0)
@@ -152,7 +152,7 @@ architecture rtl of relogio is
 				 SW1 => enableSW1);
 
 		tristate_but: entity work.tristate
-		port map(inp => "0000" & BUT,
+		port map(inp => "0000" & KEY,
 				 enable => enableBUT,
 				 outp => data_bus_in);
 		
