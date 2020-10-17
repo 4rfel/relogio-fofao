@@ -21,7 +21,7 @@ architecture rtl of ROM is
 	signal content: memory_t;
 	attribute ram_init_file : string;
 	attribute ram_init_file of content:
-	signal is "assembler.mif";
+	signal is "assembly.mif";
 
 	begin
 		data <= content(to_integer(unsigned(address)));
