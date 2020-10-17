@@ -201,7 +201,7 @@ architecture rtl of relogio is
 				 saida7seg => HEX0n);
 			
 		conversorhex1: entity work.conversorHex7Seg
-		port map(dadoHex => data_bus_out(3 downto 0),
+		port map(dadoHex => data_bus_out(6 downto 4),
 				 saida7seg => HEX1n);
 				 
 		conversorhex2: entity work.conversorHex7Seg
@@ -209,7 +209,7 @@ architecture rtl of relogio is
 				 saida7seg => HEX2n);
 				 
 		conversorhex3: entity work.conversorHex7Seg
-		port map(dadoHex => data_bus_out(3 downto 0),
+		port map(dadoHex => data_bus_out(6 downto 4),
 				 saida7seg => HEX3n);
 				 
 		conversorhex4: entity work.conversorHex7Seg
@@ -217,7 +217,7 @@ architecture rtl of relogio is
 				 saida7seg => HEX4n);
 				 
 		conversorhex5: entity work.conversorHex7Seg
-		port map(dadoHex => data_bus_out(3 downto 0),
+		port map(dadoHex => data_bus_out(6 downto 4),
 				 saida7seg => HEX5n);
 
 		register_hex0: entity work.registrador_8
