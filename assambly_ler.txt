@@ -1,27 +1,5 @@
 ;Codigo em assembly do relogio
 
-; 00000 = add
-; 00001 = sub
-; 00010 = and
-; 00011 = or
-; 00100 = not
-; 00101 = inc
-; 00110 = dec
-; 00111 = mov
-; 01000 = cmp
-; 01001 = nop
-; 01010 = ld
-; 01011 = st
-; 01100 = lea
-; 01101 = jmp
-; 01110 = jle
-; 01111 = jl
-; 10000 = jg
-; 10001 = jge
-; 10010 = je
-; 10011 = jne
-; 10100 = rst
-
 ; R4 = flag_setup
 
 ; RAM(0) segundos
