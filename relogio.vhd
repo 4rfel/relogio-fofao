@@ -21,24 +21,24 @@ end entity;
 
 architecture rtl of relogio is
 
-	signal mux_jmp, mux_mem_ime, mux_ULA_mem_ime :         std_logic;
-	signal enableRX, RAM_read, RAM_write, enableLED0 :     std_logic;
-	signal enableHEX0, enableHEX1, enableHEX2 :            std_logic;
-	signal enableHEX3, enableHEX4, enableHEX5 :            std_logic;
-	signal enableRAM, enableSW0, enableSW1, enableBUT :    std_logic;
-	signal enable_timer, out_timer, enableLED1 :           std_logic;
-	signal flag_zero, flag_neg, reset_timer :              std_logic;
-	signal comand_ULA, RX_addrs, RY_addrs, RZ_addrs :      std_logic_vector(2 downto 0);
-	signal romRX, romRY, romRZ :                           std_logic_vector(2 downto 0);
-	signal opcode :                                        std_logic_vector((opcode_width-1) downto 0);
-	signal HEX3n, HEX4n, HEX5n, HEX0n, HEX1n, HEX2n :      std_logic_vector(6 downto 0);
-	signal addrs_jmp, out_inc, out_mux_jmp, out_PC:        std_logic_vector(9 downto 0);
-	signal led_signal :                                    std_logic_vector(9 downto 0);
-	signal imediato, data_bus_in, data_bus_out :           std_logic_vector((data_width-1) downto 0);
-	signal out_register_bank, out_ULA :                    std_logic_vector((data_width-1) downto 0);
-	signal out_mux_ULA_mem_ime, out_mux_mem_ime :          std_logic_vector((data_width-1) downto 0);
-	signal addrs_mem :                                     std_logic_vector((address_width-1) downto 0);
-	signal out_ROM :                                       std_logic_vector((instruction_width-1) downto 0);
+	signal mux_jmp, mux_mem_ime, mux_ULA_mem_ime :         		 std_logic;
+	signal enableRX, RAM_read, RAM_write, enableLED0 :     		 std_logic;
+	signal enableHEX0, enableHEX1, enableHEX2 :            		 std_logic;
+	signal enableHEX3, enableHEX4, enableHEX5 :            		 std_logic;
+	signal enableRAM, enableSW0, enableSW1, enableBUT :    		 std_logic;
+	signal enable_timer, out_timer, enableLED1 :           		 std_logic;
+	signal flag_zero, flag_neg, reset_timer, enable_timer_fast : std_logic;
+	signal comand_ULA, RX_addrs, RY_addrs, RZ_addrs :      		 std_logic_vector(2 downto 0);
+	signal romRX, romRY, romRZ :                           		 std_logic_vector(2 downto 0);
+	signal opcode :                                        		 std_logic_vector((opcode_width-1) downto 0);
+	signal HEX3n, HEX4n, HEX5n, HEX0n, HEX1n, HEX2n :      		 std_logic_vector(6 downto 0);
+	signal addrs_jmp, out_inc, out_mux_jmp, out_PC:        		 std_logic_vector(9 downto 0);
+	signal led_signal :                                    		 std_logic_vector(9 downto 0);
+	signal imediato, data_bus_in, data_bus_out :           		 std_logic_vector((data_width-1) downto 0);
+	signal out_register_bank, out_ULA :                    		 std_logic_vector((data_width-1) downto 0);
+	signal out_mux_ULA_mem_ime, out_mux_mem_ime :          		 std_logic_vector((data_width-1) downto 0);
+	signal addrs_mem :                                     		 std_logic_vector((address_width-1) downto 0);
+	signal out_ROM :                                       		 std_logic_vector((instruction_width-1) downto 0);
 	
 
 	begin
@@ -167,8 +167,16 @@ architecture rtl of relogio is
 				 outp => data_bus_in);
 		
 		interfaceBaseTempo : entity work.divisorGenerico_e_Interface
+		generic map(divisor => 250000)
 		port map (clk => clk,
 				habilitaLeitura => enable_timer,
+				limpaLeitura => reset_timer,
+				leituraUmSegundo => data_bus_in(0));
+
+		interfaceBaseTempo : entity work.divisorGenerico_e_Interface
+		generic map(divisor => 100000)
+		port map (clk => clk,
+				habilitaLeitura => enable_timer_fast,
 				limpaLeitura => reset_timer,
 				leituraUmSegundo => data_bus_in(0));
 		
