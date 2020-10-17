@@ -12,37 +12,37 @@
 
 setup:
 	lea R4, $0
-	st R4, $0
-	st R4, $1
-	st R4, $2
+	st $0, R4
+	st $1, R4
+	st $2, R4
 
 set_time:
 	lea R7, $0
-	st R7, $0
-	st R7, $1
-	st R7, $2
+	st $0, R7
+	st $1, R7
+	st $2, R7
 	ld R3, $229
 	lea R1, $8
 	and R3, R1, R4
 	cmp R1, R4
-	je $setR4
+	je setR4
 	nop
 	lea R1, $1
 	and R3, R1, R2
 	cmp R1, R2
-	je $inc_sec
+	je inc_sec
 	nop
 	lea R1, $2
 	and R3, R1, R2
 	cmp R1, R2
-	je $inc_min
+	je inc_min
 	nop
 	lea R1, $4
 	and R3, R1, R2
 	cmp R1, R2
-	je $inc_hrs
+	je inc_hrs
 	nop
-	jmp $set_time
+	jmp set_time
 	nop
 	
 	
@@ -56,7 +56,7 @@ choose_timer:
 	lea R1, $1
 	and R2, R1, R3
 	cmp R3, R1
-	je $timer_fast
+	je timer_fast
 	nop
 	jmp timer
 	nop
@@ -65,27 +65,27 @@ timer:
 	ld R0, $221
 	lea R1, $1
 	cmp R1, R0
-	jne $choose_timer ;test if a second has passed
+	jne choose_timer ;test if a second has passed
 	nop
 	rst
-	jmp $logica_tempo
+	jmp logica_tempo
 	nop
 	
 timer_fast:
 	ld R0, $230
 	lea R1, $1
 	cmp R1, R0
-	jne $choose_timer
+	jne choose_timer
 	nop
 	rst
-	jmp $logica_tempo
+	jmp logica_tempo
 	nop
 	
 logica_tempo:
 	jmp inc_sec
 	nop
 voltar:
-	jmp $write_HEX
+	jmp write_HEX
 	nop
 	
 inc_sec:
@@ -93,55 +93,55 @@ inc_sec:
 	inc R7
 	lea R1, $60
 	cmp R7, R1
-	jge $inc_min
+	jge inc_min
 	nop
-	st R7, $0
+	st $0, R7
 	lea R1, $1
 	cmp R4, R1
-	je $set_time
+	je set_time
 	nop
-	jmp $voltar
+	jmp voltar
 	nop
 
 inc_min:
 	lea R7, $0
-	st R7, $1
+	st $1, R7
 	ld R7, $1
 	inc R7
 	lea R1, $60
 	cmp R7, R1
-	jge $inc_hrs
+	jge inc_hrs
 	nop
-	st R7, $1
+	st $1, R7
 	lea R1, $1
-	cmp R4, $R1
-	je $set_time
+	cmp R4, R1
+	je set_time
 	nop
-	jmp $voltar
+	jmp voltar
 	nop
 
 inc_hrs:
 	lea R7, $0
-	st R7, $2
+	st $2, R7
 	ld R7, $2
 	lea R1, $24
 	cmp R7, R1
-	jge $inc_hrs
+	jge inc_hrs
 	nop
-	st R7, $2
+	st $2, R7
 	lea R1, $1
 	cmp R4, R1
-	je $set_time
+	je set_time
 	nop
-	jmp $voltar
+	jmp voltar
 	nop
 	
 write_HEX:
 	ld R7, $0
-	st R7, $226
+	st $226, R7
 	ld R7, $1
-	st R7, $227
+	st $227, R7
 	ld R7, $2
-	st R7, $228
-	jmp $choose_timer
+	st $228, R7
+	jmp choose_timer
 	nop
