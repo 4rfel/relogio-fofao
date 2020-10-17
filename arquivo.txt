@@ -1,0 +1,104 @@
+setup:
+  lea R4, $0
+	st R4, $0
+  st R4, $1
+  st R4, $2
+
+set_time:
+  lea R7, $0
+	st R7, $0
+  st R7, $1
+  st R7, $2
+	ld R3, $229
+  and R3, $8, R4
+	cmp $8, R4
+  jne je $setR4
+  nop
+  and R3, $1, R2
+	cmp $1, R2
+  je $inc_sec
+  nop
+  and R3, $2, R2
+	cmp $2, R2
+  je $inc_min
+  nop
+  and R3, $4, R2
+	cmp $4, R2
+  je $inc_hrs
+  nop
+  jmp $set_time
+  nop
+  
+  
+setR4:
+	lea R4, $1
+  jmp timer
+  nop
+  
+timer:
+	ld R0, $221
+  cmp $1, R0
+  jne $timer
+  nop
+  rst
+  jmp $logica_tempo
+  nop
+  
+logica_tempo:
+	jmp inc_sec
+  nop
+voltar:
+  jmp $write_HEX
+  nop
+  
+inc_sec:
+  ld R7, $0
+  inc R7
+  cmp R7, $60
+  jge $inc_min
+  nop
+  st R7, $0
+  cmp R4, $1
+  je $set_time
+  nop
+  jmp $voltar
+  nop
+
+inc_min:
+	lea R7, $0
+  st R7, $1
+  ld R7, $1
+  inc R7
+  cmp R7, $60
+  jge $inc_hrs
+  nop
+  st R7, $1
+  cmp R4, $1
+  je $set_time
+  nop
+  jmp $voltar
+  nop
+
+inc_hrs:
+	lea R7, $0
+  st R7, $2
+  ld R7, $2
+  cmp R7, $24
+  jge $inc_hrs
+  nop
+  st R7, $2
+  cmp R4, $1
+  je $set_time
+  nop
+  jmp $voltar
+  nop
+  
+write_HEX:
+  ld R7, $0
+  st R7, $226
+  ld R7, $1
+	st R7, $227
+  ld R7, $2
+  st R7, $228
+	jmp $timer
+  nop

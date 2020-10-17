@@ -1,0 +1,154 @@
+Codigo em assembly do relogio
+
+-- 00000 = add
+-- 00001 = sub
+-- 00010 = and
+-- 00011 = or
+-- 00100 = not
+-- 00101 = inc
+-- 00110 = dec
+-- 00111 = mov
+-- 01000 = cmp
+-- 01001 = nop
+-- 01010 = ld
+-- 01011 = st
+-- 01100 = lea
+-- 01101 = jmp
+-- 01110 = jle
+-- 01111 = jl
+-- 10000 = jg
+-- 10001 = jge
+-- 10010 = je
+-- 10011 = jne
+-- 10100 = rst
+
+-- R4 = flag_setup
+
+-- RAM(0) segundos
+-- RAM(1) minutos
+-- RAM(2) horas
+
+-- RAM(3) segundos_base10
+-- RAM(4) minutos_base10
+-- RAM(5) horas_base10
+
+setup:
+  lea R4, $0
+	st R4, $0
+  st R4, $1
+  st R4, $2
+
+set_time:
+  lea R7, $0
+	st R7, $0
+  st R7, $1
+  st R7, $2
+	ld R3, $229
+  and R3, $8, R4
+	cmp $8, R4
+  jne je $setR4
+  nop
+  and R3, $1, R2
+	cmp $1, R2
+  je $inc_sec
+  nop
+  and R3, $2, R2
+	cmp $2, R2
+  je $inc_min
+  nop
+  and R3, $4, R2
+	cmp $4, R2
+  je $inc_hrs
+  nop
+  jmp $set_time
+  nop
+  
+  
+setR4:
+	lea R4, $1
+  jmp timer
+  nop
+  
+timer:
+	ld R0, $221
+  cmp $1, R0
+  jne $timer --test if a second has passed
+  nop
+  rst
+  jmp $logica_tempo
+  nop
+  
+logica_tempo:
+	jmp inc_sec
+  nop
+voltar:
+  jmp $write_HEX
+  nop
+  
+inc_sec:
+  ld R7, $0
+  inc R7
+  cmp R7, $60
+  jge $inc_min
+  nop
+  st R7, $0
+  cmp R4, $1
+  je $set_time
+  nop
+  jmp $voltar
+  nop
+
+inc_min:
+	lea R7, $0
+  st R7, $1
+  ld R7, $1
+  inc R7
+  cmp R7, $60
+  jge $inc_hrs
+  nop
+  st R7, $1
+  cmp R4, $1
+  je $set_time
+  nop
+  jmp $voltar
+  nop
+
+inc_hrs:
+	lea R7, $0
+  st R7, $2
+  ld R7, $2
+  cmp R7, $24
+  jge $inc_hrs
+  nop
+  st R7, $2
+  cmp R4, $1
+  je $set_time
+  nop
+  jmp $voltar
+  nop
+  
+write_HEX:
+  ld R7, $0
+  st R7, $226
+  ld R7, $1
+	st R7, $227
+  ld R7, $2
+  st R7, $228
+	jmp $timer
+  nop
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
