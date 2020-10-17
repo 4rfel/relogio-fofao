@@ -46,7 +46,7 @@ set_time:
 	ld R3, $229
   and R3, $8, R4
 	cmp $8, R4
-  jne je $setR4
+  je $setR4
   nop
   and R3, $1, R2
 	cmp $1, R2
@@ -66,13 +66,31 @@ set_time:
   
 setR4:
 	lea R4, $1
+  jmp choose_timer
+  nop
+  
+choose_timer:
+	ld R2, $225
+  and R2, $1, R3
+  cmp R3, $1
+  je $timer_fast
+  nop
   jmp timer
   nop
   
 timer:
 	ld R0, $221
   cmp $1, R0
-  jne $timer --test if a second has passed
+  jne $choose_timer --test if a second has passed
+  nop
+  rst
+  jmp $logica_tempo
+  nop
+  
+timer_fast:
+	ld R0, $230
+  cmp $1, R0
+  jne $choose_timer
   nop
   rst
   jmp $logica_tempo
@@ -134,7 +152,7 @@ write_HEX:
 	st R7, $227
   ld R7, $2
   st R7, $228
-	jmp $timer
+	jmp $choose_timer
   nop
 
   
