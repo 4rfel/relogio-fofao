@@ -27,7 +27,7 @@ architecture rtl of relogio is
 	signal enableHEX3, enableHEX4, enableHEX5 :            std_logic;
 	signal enableRAM, enableSW0, enableSW1, enableBUT :    std_logic;
 	signal enable_timer, out_timer, enableLED1 :           std_logic;
-	signal flag_zero, flag_neg :                           std_logic;
+	signal flag_zero, flag_neg, reset_timer :              std_logic;
 	signal comand_ULA, RX_addrs, RY_addrs, RZ_addrs :      std_logic_vector(2 downto 0);
 	signal romRX, romRY, romRZ :                           std_logic_vector(2 downto 0);
 	signal opcode :                                        std_logic_vector((opcode_width-1) downto 0);
@@ -122,6 +122,7 @@ architecture rtl of relogio is
 				 commandULA => comand_ULA,
 				 mux_jmp => mux_jmp,
 				 mux_mem_ime => mux_mem_ime,
+				 reset_timer => reset_timer,
 				 mux_ULA_mem_ime => mux_ULA_mem_ime);
 
 		ram: entity work.RAM
@@ -168,7 +169,7 @@ architecture rtl of relogio is
 		interfaceBaseTempo : entity work.divisorGenerico_e_Interface
 		port map (clk => clk,
 				habilitaLeitura => enable_timer,
-				limpaLeitura => '0',
+				limpaLeitura => reset_timer,
 				leituraUmSegundo => data_bus_in(0));
 		
 		register_led0: entity work.registrador_8
