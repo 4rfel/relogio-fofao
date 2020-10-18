@@ -1,24 +1,10 @@
-;Codigo em assembly do relogio
-
-; R4 = flag_setup
-
-; RAM(0) segundos
-; RAM(1) minutos
-; RAM(2) horas
-
-; RAM(3) segundos_base10
-; RAM(4) minutos_base10
-; RAM(5) horas_base10
-
 setup:
-	lea R4, $5
-	st $2, R4
-	st $226, R4
-	ld R2, $2
-	inc R2
-	st $227, R2
-	inc R4
-	st $228, R4
+	lea R4, $4
+	st $12, R4
+	ld R3, $12
+	inc R3
+
+
+	st $226, R3
 
 	jmp setup
-

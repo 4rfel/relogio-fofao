@@ -36,8 +36,8 @@ architecture rtl of ULA is
 			op_and    <= A and B;
 			op_or     <= A or B;
 			op_not    <= not A;
-			incA      <= STD_LOGIC_VECTOR(unsigned(A) + "00000001");
-			decA      <= STD_LOGIC_VECTOR(unsigned(A) - "00000001");
+			incA      <= STD_LOGIC_VECTOR(unsigned(A) + 1);
+			decA      <= STD_LOGIC_VECTOR(unsigned(A) - 1);
 
 
 			outpp <= add   when (sel = "000") else

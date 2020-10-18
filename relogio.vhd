@@ -39,6 +39,7 @@ architecture rtl of relogio is
 	signal out_mux_ULA_mem_ime, out_mux_mem_ime :          		 std_logic_vector(7 downto 0);
 	signal addrs_mem :                                     		 std_logic_vector((address_width-1) downto 0);
 	signal out_ROM :                                       		 std_logic_vector((instruction_width-1) downto 0);
+	signal clk_2hz, a: std_logic;
 	
 	
 
@@ -51,6 +52,13 @@ architecture rtl of relogio is
 		romRZ  <= out_ROM(4 downto 2);
 		imediato  <= out_ROM(7 downto 0);
 		addrs_jmp <= out_ROM(10 downto 1);
+		
+--		miguezao: entity work.scale_clock
+--		port map(clk_50Mhz => clk,
+--				rst => '0',
+--				clk_2Hz => clk_2hz);
+
+		clk_2hz <= clk;
 
 		-- setando os componentes com suas entradas e saidas necessarias utilizando os signais previamente declarados
 		MUX_jump_component: entity work.mux2x1
@@ -79,7 +87,7 @@ architecture rtl of relogio is
 		port map(DIN => out_mux_jmp,
 				 DOUT => out_PC,
 				 ENABLE => '1',
-				 CLK => clk,
+				 CLK => clk_2hz,
 				 RST => '0');
 		
 		inc_PC: entity work.inc
@@ -93,7 +101,7 @@ architecture rtl of relogio is
 		);
 
 		register_bank: entity work.bancoRegistradores
-		port map(clk => clk,
+		port map(clk => clk_2hz,
 				 enderecoA => RY_addrs,
 				 enderecoB => RZ_addrs,
 				 enderecoC => RX_addrs,
@@ -134,7 +142,7 @@ architecture rtl of relogio is
 				 we => RAM_write,
 				 re => RAM_read,
 				 enable => enableRAM,
-				 clk => clk,
+				 clk => clk_2hz,
 				 inp => data_bus_out,
 				 outp => data_bus_in);
 		
@@ -172,14 +180,14 @@ architecture rtl of relogio is
 		
 		interfaceBaseTempo : entity work.divisorGenerico_e_Interface
 		generic map(divisor => 25000000)
-		port map (clk => clk,
+		port map (clk => clk_2hz,
 				habilitaLeitura => enable_timer,
 				limpaLeitura => reset_timer,
 				leituraUmSegundo => data_bus_in(0));
 
 		interfaceBaseTempoFast : entity work.divisorGenerico_e_Interface
 		generic map(divisor => 100000)
-		port map (clk => clk,
+		port map (clk => clk_2hz,
 				habilitaLeitura => enable_timer_fast,
 				limpaLeitura => reset_timer,
 				leituraUmSegundo => data_bus_in(0));
@@ -188,22 +196,19 @@ architecture rtl of relogio is
 		port map(DIN => data_bus_out,
 				 DOUT(1 downto 0) => led_signal(9 downto 8),
 				 ENABLE => enableLED0,
-				 CLK => clk,
+				 CLK => clk_2hz,
 				 RST => '0');
 		
 		register_led1: entity work.registrador
 		port map(DIN => data_bus_out,
 				 DOUT => led_signal(7 downto 0),
 				 ENABLE => enableLED1,
-				 CLK => clk,
+				 CLK => clk_2hz,
 				 RST => '0');
 		
+--		LEDR <= "00" & data_bus_out;
+		LEDR <= reset_timer & led_signal(8 downto 0);
 		
---		LEDR <= enableRX & mux_ULA_mem_ime & data_bus_out;
---out_register_bank
-		LEDR <= led_signal;
---				 mux_ULA_mem_ime => mux_ULA_mem_ime
-
 		conversorhex0: entity work.conversorHex7Seg
 		port map(dadoHex => data_bus_out(3 downto 0),
 				 saida7seg => HEX0n);
@@ -232,42 +237,42 @@ architecture rtl of relogio is
 		port map(DIN => "0" & HEX0n,
 				 DOUT(6 downto 0) => HEX0,
 				 ENABLE => enableHEX0,
-				 CLK => clk,
+				 CLK => clk_2hz,
 				 RST => '0');
 		
 		register_hex1: entity work.registrador
 		port map(DIN => "0" & HEX1n,
 				DOUT(6 downto 0) => HEX1,
 				ENABLE => enableHEX1,
-				CLK => clk,
+				CLK => clk_2hz,
 				RST => '0');
 		
 		register_hex2: entity work.registrador
 		port map(DIN => "0" & HEX2n,
 				 DOUT(6 downto 0) => HEX2,
 				 ENABLE => enableHEX2,
-				 CLK => clk,
+				 CLK => clk_2hz,
 				 RST => '0');
 		
 		register_hex3: entity work.registrador
 		port map(DIN => "0" & HEX3n,
 				DOUT(6 downto 0) => HEX3,
 				ENABLE => enableHEX3,
-				CLK => clk,
+				CLK => clk_2hz,
 				RST => '0');
 		
 		register_hex4: entity work.registrador
 		port map(DIN => "0" & HEX4n,
 				 DOUT(6 downto 0) => HEX4,
 				 ENABLE => enableHEX4,
-				 CLK => clk,
+				 CLK => clk_2hz,
 				 RST => '0');
 		
 		register_hex5: entity work.registrador
 		port map(DIN => "0" & HEX5n,
 				DOUT(6 downto 0) => HEX5,
 				ENABLE => enableHEX5,
-				CLK => clk,
+				CLK => clk_2hz,
 				RST => '0');
 
 end architecture;
