@@ -52,7 +52,7 @@ entity controller is
 --											 opcode = "00010" or opcode = "00011" or 
 --										    opcode = "00100" or opcode = "00101" or
 --											 opcode = "00110" or opcode = "00111" else 'Z';
-		aa <= '1' when unsigned(opcode) <= 7 else 'Z';
+		aa <= '1' when unsigned(opcode) <= 7 else '0' when (opcode = "01010" or opcode = "01100") else 'Z';
 		mux_ULA_mem_ime <= '1' when aa = '1' else '0'; -- the first 7 opcodes use the ULA
 --		mux_ULA_mem_ime <= '1' when unsigned(opcode) <= 7 else '0' when opcode = "11111" else 'Z';
 		enableRX <= '1' when unsigned(opcode) <= 7 or opcode = "01100" else '0'; -- the first 7 opcodes and 01100 (lea)
