@@ -1,0 +1,8 @@
+setR4:
+	lea R4, $8
+	add R3, R1, R1
+	st $226, R4
+	jmp setR4
+	nop
+	nop
+	nop

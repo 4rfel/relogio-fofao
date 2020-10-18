@@ -1,0 +1,6 @@
+start:
+    lea R0, $255
+    st $223, R0
+    st $222, R0
+    jmp start
+    nop

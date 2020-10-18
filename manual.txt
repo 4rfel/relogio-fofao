@@ -1,0 +1,8 @@
+MANUAL
+
+chave0 muda entre modo normal e modo rapido
+botao3 sai da configuracao do tempo
+botao2 muda hora
+botao1 muda minuto
+botao0 muda segundo
+
