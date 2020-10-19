@@ -127,7 +127,7 @@ for x in missing_jumps:
 # CONTENT -- start of (address : data pairs) 
 # BEGIN"""
 # )
-aa = """DEPTH = 2048; -- The size of memory in words
+aa = """DEPTH = 1024; -- The size of memory in words
 WIDTH = 16; -- The size of data in bits 
 ADDRESS_RADIX = HEX; -- The radix for address values 
 DATA_RADIX = BIN; -- The radix for data values 

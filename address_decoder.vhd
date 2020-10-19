@@ -14,7 +14,7 @@ entity address_decoder is
 		address :                                        in std_logic_vector(7 downto 0);
 		HEX0, HEX1, HEX2, HEX3, HEX4, HEX5 :             out std_logic := '0';
 		LED0, LED1, RAM :                                out std_logic := '0';
-		BUT, BaseTempo, SW0, SW1, BaseTmpoFast :         out std_logic := '0'
+		BUT, BaseTempo, SW0, SW1, BaseTempoFast :         out std_logic := '0'
 	);
 end entity;
 	-- 01010 = ld
@@ -36,6 +36,6 @@ architecture rtl of address_decoder is
 			HEX4 <= '1' when (opcode="01011") and (unsigned(address) = 228) else '0';
 			HEX5 <= '1' when (opcode="01011") and (unsigned(address) = 228) else '0';
 			BUT <= '1' when (opcode="01010") and (unsigned(address) = 229) else '0';
-			BaseTmpoFast <= '1' when (opcode="01010") and (unsigned(address) = 230) else '0';
+			BaseTempoFast <= '1' when (opcode="01010") and (unsigned(address) = 230) else '0';
 
 end architecture;
