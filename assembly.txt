@@ -1,10 +1,18 @@
 setup:
-	lea R4, $4
-	st $12, R4
-	ld R3, $12
-	inc R3
+	lea R4, $0
+	st $226, R4
+
+	jmp timer
 
 
-	st $226, R3
-
-	jmp setup
+timer:
+	ld R0, $221
+	lea R1, $1
+	and R0, R1, R0
+	st $227, R0
+	cmp R0, R1
+	jne timer
+	rst
+	inc R4
+	st $226, R4
+	jmp timer

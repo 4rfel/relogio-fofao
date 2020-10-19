@@ -37,12 +37,13 @@ architecture rtl of relogio is
 	signal imediato, data_bus_in, data_bus_out :           		 std_logic_vector((data_width-1) downto 0);
 	signal out_register_bank, out_ULA :                    		 std_logic_vector((data_width-1) downto 0);
 	signal out_mux_ULA_mem_ime, out_mux_mem_ime :          		 std_logic_vector(7 downto 0);
+	signal out_RAM, out_SW0, out_SW1, out_BUT, out_BaseTempo, out_BaseTempoFast: std_logic_vector(7 downto 0);
+
 	signal addrs_mem :                                     		 std_logic_vector((address_width-1) downto 0);
 	signal out_ROM :                                       		 std_logic_vector((instruction_width-1) downto 0);
-	signal clk_2hz, a: std_logic;
+	signal clk_2hz: std_logic;
 	
 	
-
 	begin
 		-- definindo os valores dos signais q saem da rom
 		opcode <= out_ROM(15 downto 11);
@@ -67,6 +68,8 @@ architecture rtl of relogio is
 				 B => addrs_jmp,
 				 sel => mux_jmp,
 				 outp =>  out_mux_jmp);
+				 
+		data_bus_in <= out_RAM or out_SW0 or out_SW1 or out_BUT or out_BaseTempo or out_BaseTempoFast;
 
 		MUX_mem_ime_component: entity work.mux2x1
 		port map(A => data_bus_in,
@@ -144,7 +147,7 @@ architecture rtl of relogio is
 				 enable => enableRAM,
 				 clk => clk_2hz,
 				 inp => data_bus_out,
-				 outp => data_bus_in);
+				 outp => out_RAM);
 		
 		decoder: entity work.address_decoder
 		port map(opcode => opcode,
@@ -166,31 +169,31 @@ architecture rtl of relogio is
 		tristate_but: entity work.tristate
 		port map(inp => "0000" & KEY,
 				 enable => enableBUT,
-				 outp => data_bus_in);
+				 outp => out_BUT);
 		
 		tristate_SW0: entity work.tristate
 		port map(inp => "000000" & SW(9 downto 8),
 				 enable => enableSW0,
-				 outp => data_bus_in);
+				 outp => out_SW0);
 
 		tristate_SW1: entity work.tristate
 		port map(inp => SW(7 downto 0),
 				 enable => enableSW1,
-				 outp => data_bus_in);
+				 outp => out_SW1);
 		
 		interfaceBaseTempo : entity work.divisorGenerico_e_Interface
 		generic map(divisor => 25000000)
 		port map (clk => clk_2hz,
 				habilitaLeitura => enable_timer,
 				limpaLeitura => reset_timer,
-				leituraUmSegundo => data_bus_in(0));
+				leituraUmSegundo => out_BaseTempo(0));
 
 		interfaceBaseTempoFast : entity work.divisorGenerico_e_Interface
 		generic map(divisor => 100000)
 		port map (clk => clk_2hz,
 				habilitaLeitura => enable_timer_fast,
 				limpaLeitura => reset_timer,
-				leituraUmSegundo => data_bus_in(0));
+				leituraUmSegundo => out_BaseTempoFast(0));
 		
 		register_led0: entity work.registrador
 		port map(DIN => data_bus_out,
@@ -206,8 +209,8 @@ architecture rtl of relogio is
 				 CLK => clk_2hz,
 				 RST => '0');
 		
---		LEDR <= "00" & data_bus_out;
-		LEDR <= reset_timer & led_signal(8 downto 0);
+		LEDR <= led_signal;
+--		LEDR <= "00" & out_mux_ULA_mem_ime(7 downto 0);
 		
 		conversorhex0: entity work.conversorHex7Seg
 		port map(dadoHex => data_bus_out(3 downto 0),
