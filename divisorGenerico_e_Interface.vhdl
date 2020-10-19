@@ -28,6 +28,6 @@ registraUmSegundo: entity work.flipflopGenerico
 			RST => limpaLeitura);
 
 -- Faz o tristate de saida:
-leituraUmSegundo <= sinalUmSegundo when habilitaLeitura = '1' else 'Z';
+leituraUmSegundo <= sinalUmSegundo when habilitaLeitura = '1' else '0';
 
 end architecture interface;

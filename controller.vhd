@@ -9,7 +9,7 @@ entity controller is
 		romRX, romRY, romRZ :                   in std_logic_vector(2 downto 0);
 		flag_zero, flag_neg :                   in std_logic;
 		commandULA, RX, RY, RZ :                out std_logic_vector(2 downto 0);
-		mux_jmp, mux_mem_ime, mux_ULA_mem_ime, enableRX, RAM_read, RAM_write, reset_timer : out std_logic
+		mux_jmp, mux_mem_ime, mux_ULA_mem_ime, enableRX, RAM_read, RAM_write, reset_timer, enable_ff_cmp : out std_logic
 	);
 	end entity;
 
@@ -52,11 +52,13 @@ entity controller is
 		mux_ULA_mem_ime <= '1' when aa = '1' else '0'; -- the first 7 opcodes use the ULA
 		enableRX <= '1' when unsigned(opcode) <= 7 or opcode = "01100" or opcode = "01010" else '0'; -- the first 7 opcodes and 01100 (lea)
 																				 -- will save a value on RX
-		commandULA <= opcode(2 downto 0);
+		commandULA <= "001" when opcode = "01000" or opcode = "00001" else
+						  "010" when opcode = "00010" else "000";
 		-- the first 7 opcodes use the ULA and the commands for it are in the same order
 --		bb <= '1' when opcode <= "01100" else '0' when (opcode = "01010" or opcode = "01100") else 'Z';
 		mux_mem_ime <= '1' when opcode = "01100" else '0'; -- select imediato when ia a lea instruction
 		RAM_read <= '1' when opcode = "01010" else '0'; -- enable read from RAM when is a load instruction 
 		RAM_write <= '1' when opcode = "01011" else '0'; -- enable write to RAM when is a store instruction
 		reset_timer <= '1' when opcode = "10100" else '0'; -- clear timer flag
+		enable_ff_cmp <= '1' when opcode = "01000" else '0'; -- enable flip flop neg and zero
 end architecture;

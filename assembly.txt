@@ -1,18 +1,257 @@
-setup:
-	lea R4, $0
-	st $226, R4
+; vim:fileencoding=utf-8:syntax=asm
 
-	jmp timer
+; Codigo em assembly do relogio
 
+; R4 = flag_setup
+
+; RAM(0) segundos
+; RAM(1) minutos
+; RAM(2) horas
+
+; RAM(3) segundos_base10
+; RAM(4) minutos_base10
+; RAM(5) horas_base10
+
+; Endereços de memória
+; Switches               225
+; Display 7              226 - 228
+; Botões                 229
+; LED                    223
+; Base de tempo          221
+; Base de tempo rápida   230
+
+
+
+lea R4, $0
+
+lea R7, $255
+st $228, R7
+st $227, R7
 
 timer:
-	ld R0, $221
-	lea R1, $1
-	and R0, R1, R0
-	st $227, R0
-	cmp R0, R1
-	jne timer
-	rst
-	inc R4
-	st $226, R4
-	jmp timer
+    ld R0, $221 ; base de tempo
+    lea R1, $1
+    and R0, R1, R0
+    st $226, R0 ; display 0 & 1
+    cmp R0, R1
+    jne timer ;jmp se base de tempo != 1
+
+    rst
+    st $228, R7
+
+    inc R4
+    st $227, R4 ; display 2 & 3
+    jmp timer
+
+; lea R4, $16
+; st $226, R4
+; lea R4, $255
+; st $227, R4
+; lea R4, $10
+; st $228, R4
+; start:
+;     jmp start
+; 
+; setup:
+;     lea R4, $0
+;     st $0, R4
+;     st $1, R4
+;     st $2, R4
+; 
+;     st $226, R4
+;     st $227, R4
+;     st $228, R4
+; 
+; 
+; set_time:
+;     ld R3, $229 ; botoes
+;     st $223, R3 ; leds
+; 
+;     lea R1, $1
+;     and R2, R1, R3 ; KEY0
+; 
+;     st $228, R2
+;     cmp R1, R2
+;     jne inc_sec
+; 
+;     lea R1, $2
+;     and R2, R1, R3 ; KEY1
+;     cmp R1, R2
+;     jne inc_min
+; 
+;     lea R1, $4
+;     and R2, R1, R3 ; KEY2
+;     cmp R1, R2
+;     jne inc_hrs
+; 
+;     lea R1, $8
+;     and R4, R1, R3 ; KEY3
+;     cmp R1, R4
+;     jne setR4 ; botao apertado
+; 
+;     jmp set_time
+; 
+; setR4:
+;     st $0, R4
+; choose_timer:
+;     ld R2, $225
+;     lea R1, $1
+;     and R5, R1, R2
+;     cmp R5, R1
+;     je choose_fast
+;     ld R0, $221
+;     jmp timer
+; choose_fast:
+;     ld R0, $230
+; timer:
+;     lea R1, $1
+;     cmp R1, R0
+;     jne choose_timer ; test if a second has passed
+;     nop
+;     rst
+;     jmp logica_tempo
+;     nop
+; 
+; 
+; logica_tempo:
+; inc_sec:
+;     ; u8* secp = 0;
+;     ; u8 sec = *secp;
+;     ; sec++;
+;     ; if (sec >= 60) {
+;     ;     sec = 0;
+;     ; }
+;     ; *secp = sec
+; 
+;     ld R0, $0
+;     inc R0
+;     lea R1, $60
+;     cmp R0, R1 ; (0) < 60
+;     jl inc_sec_st
+;     lea R0, $0
+; inc_sec_st:
+;     st $0, R0
+;     jmp end_inc
+; 
+; inc_min:
+;     ; u8* minp = 1;
+;     ; u8 min = *minp;
+;     ; min++;
+;     ; if (min >= 60) {
+;     ;     min = 0;
+;     ; }
+;     ; *minp = min
+; 
+;     ld R0, $1
+;     inc R0
+;     lea R1, $60
+;     cmp R0, R1 ; (1) < 60
+;     jl inc_min_st
+;     lea R0, $0
+; inc_min_st:
+;     st $1, R0
+;     jmp end_inc
+; 
+; inc_hrs:
+;     ; u8* hourp = 2;
+;     ; u8 hour = *hourp;
+;     ; hour++;
+;     ; if (hour >= 24) {
+;     ;     hour = 0;
+;     ; }
+;     ; *hourp = hour
+; 
+;     ld R0, $2
+;     inc R0
+;     lea R1, $24
+;     cmp R0, R1 ; (2) < 24
+;     jl inc_hrs_st
+;     lea R0, $0
+; inc_hrs_st:
+;     st $2, R0
+;     jmp end_inc
+; 
+; 
+; end_inc: ; Check if set_time
+;     lea R1, $1
+;     cmp R4, R1
+;     jne voltar
+; 
+;     lea R0, $15
+; espera_but_loop:
+;     ld R3, $229 ; botoes
+;     cmp R0, R3
+;     jne espera_but_loop
+; 
+;     jmp set_time
+; 
+; voltar:
+; write_HEX:
+;     lea R7, $255
+;     st $228, R7
+; 
+;     ld R7, $0
+;     st $226, R7
+;     ld R7, $1
+;     st $227, R7
+;     ; ld R7, $2
+;     ; st $228, R7
+; 
+;     lea R1, $1
+;     cmp R4, R1
+;     je set_time
+;     nop
+;     jmp choose_timer
+;     nop
+; 
+; ;setup:
+; ;
+; ;    ld R0, $229 ; botao
+; ;    st $226, R0
+; ;
+; ;    ; ld R0, $225 ; sw
+; ;    ; st $227, R0
+; ;    ld R0, $221 ; base de tempo
+; ;    st $223, R0 ; leds
+; ;
+; ;    jmp setup
+; ;
+; ;    lea R1, $1
+; ;    lea R7, $0
+; ;    lea R2, $1
+; ;    ;st $226, R4
+; ;
+; ;timer:
+; ;    ld R0, $221 ; base de tempo
+; ;    st $223, R0 ; leds
+; ;    and R0, R1, R0
+; ;    st $223, R0
+; ;    cmp R2, R0
+; ;    jne timer
+; ;    nop
+; ;    ;rst
+; ;    inc R7
+; ;    st $227, R7
+; ;    jmp timer
+; ;
+; ;
+; ;
+; ;;jmp timer
+; ;
+; ;
+; ;;timer:
+; ;;	ld R0, $221
+; ;;	lea R1, $1
+; ;;	and R0, R1, R0
+; ;;	st $227, R0
+; ;;	cmp R0, R1
+; ;;	jne timer
+; ;;	rst
+; ;;	inc R4
+; ;;	st $226, R4
+; ;;	jmp timer
+; ;
+; ;
+; ;end:
+; ;    nop
+; ;    jmp end
