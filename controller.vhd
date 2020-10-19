@@ -45,15 +45,14 @@ entity controller is
 						or (opcode = "01111" and flag_zero = '0' and flag_neg = '1') -- jl
 						or (opcode = "10000" and flag_zero = '0' and flag_neg = '0') -- jg
 						or (opcode = "10001" and flag_zero = '1' and flag_neg = '0') -- jge
-						or (opcode = "10010" and flag_zero = '1' and flag_neg = '0') -- je
+						or (opcode = "10010" and flag_zero = '1') -- je
 						or (opcode = "10011" and flag_zero = '0') -- jne
 						else '0'; -- default
 		aa <= '1' when unsigned(opcode) <= 7 else '0' when (opcode = "01010" or opcode = "01100") else 'Z';
 		mux_ULA_mem_ime <= '1' when aa = '1' else '0'; -- the first 7 opcodes use the ULA
 		enableRX <= '1' when unsigned(opcode) <= 7 or opcode = "01100" or opcode = "01010" else '0'; -- the first 7 opcodes and 01100 (lea)
 																				 -- will save a value on RX
-		commandULA <= "001" when opcode = "01000" or opcode = "00001" else
-						  "010" when opcode = "00010" else "000";
+		commandULA <= "001" when opcode = "01000" else opcode(2 downto 0) when unsigned(opcode) <= 7 else "000";
 		-- the first 7 opcodes use the ULA and the commands for it are in the same order
 --		bb <= '1' when opcode <= "01100" else '0' when (opcode = "01010" or opcode = "01100") else 'Z';
 		mux_mem_ime <= '1' when opcode = "01100" else '0'; -- select imediato when ia a lea instruction

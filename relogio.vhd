@@ -75,7 +75,7 @@ architecture rtl of relogio is
 				 sel => mux_jmp,
 				 outp =>  out_mux_jmp);
 				 
-		data_bus_in <= out_BaseTempo;--out_RAM or out_SW0 or out_SW1 or out_BUT or out_BaseTempo or out_BaseTempoFast;
+		data_bus_in <= out_BaseTempo or out_RAM or out_SW0 or out_SW1 or out_BUT or out_BaseTempo or out_BaseTempoFast;
 
 		MUX_mem_ime_component: entity work.mux2x1
 		port map(A => data_bus_in,
@@ -227,8 +227,7 @@ architecture rtl of relogio is
 				 CLK => clk,
 				 RST => '0');
 		
-		LEDR <= out_BaseTempo(0) & "000000000"; -- led_signal;
---		LEDR <= "00" & out_mux_ULA_mem_ime(7 downto 0);
+		LEDR <= led_signal;
 		
 		conversorhex0: entity work.conversorHex7Seg
 		port map(dadoHex => data_bus_out(3 downto 0),

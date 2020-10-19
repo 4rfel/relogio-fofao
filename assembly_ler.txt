@@ -1,15 +1,3 @@
-;Codigo em assembly do relogio
-
-; R4 = flag_setup
-
-; RAM(0) segundos
-; RAM(1) minutos
-; RAM(2) horas
-
-; RAM(3) segundos_base10
-; RAM(4) minutos_base10
-; RAM(5) horas_base10
-
 setup:
 	lea R4, $0
 	st $0, R4
@@ -19,7 +7,7 @@ setup:
 	st $226, R4
 	st $227, R4
 	st $228, R4
-
+	
 	jmp setR4
 
 
@@ -48,12 +36,11 @@ set_time:
 	jmp set_time
 	nop
 
-	
 setR4:
 	st $0, R4
 	jmp choose_timer
 	nop
-	
+
 choose_timer:
 	ld R2, $225
 	lea R1, $1
@@ -63,7 +50,7 @@ choose_timer:
 	nop
 	jmp timer
 	nop
-	
+
 timer:
 	ld R0, $221
 	lea R1, $1
@@ -73,7 +60,7 @@ timer:
 	rst
 	jmp logica_tempo
 	nop
-	
+
 timer_fast:
 	ld R0, $230
 	lea R1, $1
@@ -83,62 +70,74 @@ timer_fast:
 	rst
 	jmp logica_tempo
 	nop
-	
+
+
 logica_tempo:
-	jmp inc_sec
-	nop
-voltar:
-	jmp write_HEX
-	nop
-	
 inc_sec:
-	ld R7, $0
-	inc R7
+	; u8* secp = 0;
+	; u8 sec = *secp;
+	; sec++;
+	; if (sec >= 60) {
+	;     sec = 0;
+	; }
+	; *secp = sec
+	
+	ld R0, $0
+	inc R0
 	lea R1, $60
-	cmp R7, R1
-	jge inc_min
-	nop
-	st $0, R7
-	lea R1, $1
-	cmp R4, R1
-	je set_time
-	nop
-	jmp voltar
-	nop
+	cmp R0, R1 ; (0) < 60
+	jl inc_sec_st
+	lea R0, $0
+inc_sec_st:
+	st $0, R0
+	jmp end_inc
 
 inc_min:
-	lea R7, $0
-	st $1, R7
-	ld R7, $1
-	inc R7
+	; u8* minp = 1;
+	; u8 min = *minp;
+	; min++;
+	; if (min >= 60) {
+	;     min = 0;
+	; }
+	; *minp = min
+	
+	ld R0, $1
+	inc R0
 	lea R1, $60
-	cmp R7, R1
-	jge inc_hrs
-	nop
-	st $1, R7
-	lea R1, $1
-	cmp R4, R1
-	je set_time
-	nop
-	jmp voltar
-	nop
+	cmp R0, R1 ; (1) < 60
+	jl inc_min_st
+	lea R0, $0
+inc_min_st:
+	st $1, R0
+	jmp end_inc
 
 inc_hrs:
-	lea R7, $0
-	st $2, R7
-	ld R7, $2
+	; u8* hourp = 2;
+	; u8 hour = *hourp;
+	; hour++;
+	; if (hour >= 24) {
+	;     hour = 0;
+	; }
+	; *hourp = hour
+	
+	ld R0, $2
+	inc R0
 	lea R1, $24
-	cmp R7, R1
-	jge inc_hrs
-	nop
-	st $2, R7
+	cmp R0, R1 ; (2) < 24
+	jl inc_hrs_st
+	lea R0, $0
+inc_hrs_st:
+	st $2, R0
+	jmp end_inc
+
+
+end_inc:
 	lea R1, $1
 	cmp R4, R1
 	je set_time
-	nop
 	jmp voltar
-	nop
-	
+
+voltar:
 write_HEX:
 	ld R7, $0
 	st $226, R7
@@ -146,9 +145,11 @@ write_HEX:
 	st $227, R7
 	ld R7, $2
 	st $228, R7
+	
 	lea R1, $1
 	cmp R4, R1
 	je set_time
 	nop
 	jmp choose_timer
 	nop
+
