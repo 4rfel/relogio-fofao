@@ -28,55 +28,63 @@
 
 lea R4, $0
 
-lea R7, $0
+st $0, R4
+st $1, R4
+st $2, R4
+st $69, R4
 
-st $0, R7
-st $1, R7
-st $2, R7
 
-st $228, R7
-st $227, R7
-st $226, R7
+st $228, R4
+st $227, R4
+st $226, R4
 
 
 set_time:
 	ld R3, $229
-	lea R1, $8
-	and R4, R1, R3
-	cmp R1, R4
+	lea R0, $8
+	and R1, R3, R0
+	cmp R0, R1
 	jne setR4
-	
-	lea R1, $1
-	and R2, R1, R3
-	cmp R1, R2
-	jne inc_sec
-	
-	lea R1, $2
-	and R2, R1, R3
-	cmp R1, R2
-	jne inc_min
-	
-	lea R1, $4
-	and R2, R1, R3
-	cmp R1, R2
+
+	lea R0, $4
+	and R1, R3, R0
+	cmp R0, R1
 	jne inc_hr
+
+	lea R0, $2
+	and R1, R3, R0
+	cmp R0, R1
+	jne inc_min
+
+	lea R0, $1
+	and R1, R3, R0
+	cmp R0, R1
+	jne inc_sec
 	
 	jmp set_time
 	
 
 setR4:
-	st $0, R4
-	st $222, R4
+	not R4
 	jmp choose_timer
-	nop
+
+resetR4:
+	not R4
+	jmp set_time
 
 choose_timer:
+	ld R3, $229
+	lea R0, $8
+	and R1, R3, R0
+	cmp R0, R1
+	jne resetR4
+
 	ld R0, $225
 	lea R1, $1
 	and R0, R1, R0
 	st $223, R0
 	cmp R0, R1
-	jne timer 
+	jne timer
 	jmp timer_fast
 
 
@@ -134,15 +142,22 @@ end_inc_min:
 inc_hr:
 	ld R0, $2
 	inc R0
-	lea R1, $24
+	lea R1, $12
 	cmp R0, R1
 	jne end_inc_hr
 	lea R0, $0
 	st $2, R0
-	jmp write_HEX
+	jmp am_pm
 
 end_inc_hr:
 	st $2, R0
+	jmp write_HEX
+
+am_pm:
+	ld R0, $69
+	not R0
+	st $69, R0
+	st $222, R0
 	jmp write_HEX
 
 write_HEX:
@@ -153,8 +168,15 @@ write_HEX:
 	ld R0, $2
 	st $228, R0
 
-	lea R0, $0
-	cmp R4, R0
-	jne set_time
+	lea R0, $255
+	cmp R0, R4
+	jne wait_but
 
 	jmp choose_timer
+
+wait_but:
+	ld R3, $229
+	lea R0, $15
+	cmp R0, R3
+	jne wait_but
+	jmp set_time

@@ -10,8 +10,8 @@ entity conversorHex7Seg is
 		negativo : in  std_logic := '0';
 		overFlow : in  std_logic := '0';
 		-- Output ports
-		saida7seg0 : out std_logic_vector(6 downto 0)  -- := (others => '1')
-		saida7seg1 : out std_logic_vector(6 downto 0)  -- := (others => '1')
+		saida7seg0 : out std_logic_vector(6 downto 0) := (others => '1')
+		saida7seg1 : out std_logic_vector(6 downto 0) := (others => '1')
 
 	);
 end entity;

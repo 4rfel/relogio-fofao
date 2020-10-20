@@ -50,7 +50,6 @@ architecture rtl of relogio is
 
 	signal addrs_mem :                                     		 std_logic_vector((address_width-1) downto 0);
 	signal out_ROM :                                       		 std_logic_vector((instruction_width-1) downto 0);
-	signal auxReset: std_logic;
 	
 	
 	begin
@@ -63,9 +62,6 @@ architecture rtl of relogio is
 		imediato  <= out_ROM(7 downto 0);
 		addrs_jmp <= out_ROM(10 downto 1);
 		
-		-- edge detector
-		
-		detectorSub0: work.edgeDetector port map (clk => clk, entrada => (not KEY(0)), saida => auxReset);
 
 		-- setando os componentes com suas entradas e saidas necessarias utilizando os signais previamente declarados
 		MUX_jump_component: entity work.mux2x1
@@ -203,7 +199,7 @@ architecture rtl of relogio is
 		generic map(divisor => 25000000)
 		port map (clk => clk,
 				habilitaLeitura => enable_timer,
-				limpaLeitura => reset_timer or auxReset,
+				limpaLeitura => reset_timer,
 				leituraUmSegundo => out_BaseTempo(0));
 
 		interfaceBaseTempoFast : entity work.divisorGenerico_e_Interface

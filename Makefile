@@ -10,5 +10,4 @@ program:
 	quartus_pgm -m jtag -c 1 -o "p;output_files/relogio.sof"
 
 jtag:
-	sudo killall -9 jtagd & sudo jtagconfig & quartus_pgm -m jtag -c 1 -o "p;output_files/relogio.sof"
-
+	sudo killall -9 jtag && sudo jtagconfig 
