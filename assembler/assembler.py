@@ -49,7 +49,8 @@ class AssemblerError(LineParserError):
 
 
 def parse_num(n: str):
-    if n[0] == "$" and (rn := n[1:]).isdigit():
+    rn = n[1:]
+    if n[0] == "$" and rn.isdigit():
         pn = int(rn)
         if 0 <= pn <= 255:
             return "{0:b}".format(pn).zfill(8)
