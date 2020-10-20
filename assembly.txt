@@ -8,9 +8,8 @@
 ; RAM(1) minutos
 ; RAM(2) horas
 
-; RAM(3) segundos_base10
-; RAM(4) minutos_base10
-; RAM(5) horas_base10
+; RAM(3) flag_alarm
+
 
 
 ;BaseTempo           221
@@ -25,18 +24,21 @@
 ;BaseTempoFast       230
 
 
-
 lea R4, $0
 
 st $0, R4
 st $1, R4
 st $2, R4
+st $3, R4
+st $5, R4
+
 st $69, R4
 
 
 st $228, R4
 st $227, R4
 st $226, R4
+
 
 
 set_time:
@@ -70,6 +72,9 @@ setR4:
 
 resetR4:
 	not R4
+	lea R0, $0 ; reseting leds alarm
+	st $3, R0 ; reseting leds alarm
+	st $223, R0 ; reseting leds alarm
 	jmp set_time
 
 choose_timer:
@@ -80,9 +85,23 @@ choose_timer:
 	jne resetR4
 
 	ld R0, $225
+	lea R1, $2
+	and R2, R1, R0
+	st $3, R2
+	cmp R2, R1
+	jne clear_alarm
+
 	lea R1, $1
 	and R0, R1, R0
-	st $223, R0
+	or R3, R2, R0
+	ld R0, $5
+	or R3, R0, R3
+	st $223, R3
+
+
+	ld R0, $225
+	lea R1, $1
+	and R0, R1, R0
 	cmp R0, R1
 	jne timer
 	jmp timer_fast
@@ -94,10 +113,7 @@ timer:
 	and R0, R1, R0
 	cmp R0, R1
 	jne choose_timer ;jmp se base de tempo != 1
-
-	rst
-
-	jmp inc_sec
+	jmp reset_timer
 
 timer_fast:
 	ld R0, $230 ; base de tempo rapida
@@ -105,8 +121,14 @@ timer_fast:
 	and R0, R1, R0
 	cmp R0, R1
 	jne choose_timer ;jmp se base de tempo != 1
+	jmp reset_timer
 
+reset_timer:
 	rst
+	ld R0, $3
+	lea R1, $2
+	cmp R0, R1
+	je dec_sec
 
 	jmp inc_sec
 
@@ -180,3 +202,88 @@ wait_but:
 	cmp R0, R3
 	jne wait_but
 	jmp set_time
+
+dec_sec:
+	ld R0, $0
+	dec R0
+	lea R1, $0
+	cmp R0, R1
+	jg end_dec_sec
+	ld R0, $1
+	lea R1, $0
+	cmp R0, R1
+	je min_zerado
+	lea R0, $59
+	st $0, R0
+	jmp dec_min
+
+min_zerado:
+	lea R0, $0
+	st $0, R0
+	st $226, R0
+	jmp alarm
+
+end_dec_sec:
+	st $0, R0
+	jmp write_HEX
+
+dec_min:
+	ld R0, $1
+	dec R0
+	lea R1, $0
+	cmp R0, R1
+	jg end_dec_min
+	ld R0, $2
+	lea R1, $0
+	cmp R0, R1
+	je hr_zerado
+	lea R0, $59
+	st $1, R0
+	jmp dec_hr
+
+hr_zerado:
+	lea R0, $0
+	st $1, R0
+	st $227, R0
+	jmp write_HEX
+
+end_dec_min:
+	st $1, R0
+	jmp write_HEX
+
+dec_hr:
+	ld R0, $2
+	dec R0
+	lea R1, $0
+	cmp R0, R1
+	jg end_dec_hr
+	lea R0, $0
+	st $2, R0
+	jmp write_HEX
+
+end_dec_hr:
+	st $2, R0
+	jmp write_HEX
+
+alarm:
+	ld R0, $4
+	lea R1, $0
+	cmp R0, R1
+	jne pisca_off
+	lea R0, $1
+	st $4, R0
+	lea R0, $168
+	st $5, R0
+	jmp choose_timer
+
+pisca_off:
+	lea R0, $0
+	st $4, R0
+	lea R0, $84
+	st $5, R0
+	jmp choose_timer
+
+clear_alarm:
+	lea R0, $0
+	st $5, R0
+	jmp choose_timer
