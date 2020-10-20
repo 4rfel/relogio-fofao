@@ -6,7 +6,7 @@ from line_parser import LineParser, LineParserError, LineType
 from config import opcodes, instruction_size, jumps
 
 parser = argparse.ArgumentParser()
-parser.add_argument("-o", "--output", help="output file", type=str)
+parser.add_argument("-o", "--output", help="output file", type=str, default="assembly.mif")
 parser.add_argument("in_file", help="assembly file to be assembled", type=str)
 
 args = parser.parse_args()
@@ -140,5 +140,5 @@ for idx in range(len(instructions)):
     s += f"{hex(idx)[2:].zfill(3)} : {instructions[idx]};\n"
 s += "END\n"
 
-with open("assembly.mif" if args.output is None else args.output, "w") as f:
+with open(args.output, "w") as f:
     f.write(s)
