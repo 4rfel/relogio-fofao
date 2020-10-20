@@ -38,7 +38,7 @@ entity controller is
 	signal aa, bb : std_logic;
 	begin
 		RX <= romRX;
-		RY <= romRX when opcode = "01011" else romRY; -- RX when we want to store a word in RAM/IOs else RY
+		RY <= romRX when opcode = "01011" or opcode = "01000" else romRY; -- RX when we want to store a word in RAM/IOs else RY
 		RZ <= romRZ;
 		mux_jmp <= '1' when opcode = "01101" -- jmp
 						or (opcode = "01110" and flag_zero = '1' and flag_neg = '1') -- jle
