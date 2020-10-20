@@ -9,6 +9,8 @@
 ; RAM(2) horas
 
 ; RAM(3) flag_alarm
+; RAM(5) leds_alarm
+
 
 
 
@@ -73,7 +75,8 @@ setR4:
 resetR4:
 	not R4
 	lea R0, $0 ; reseting leds alarm
-	st $3, R0 ; reseting leds alarm
+	st $3, R0 ; reseting alarm flag
+	st $5, R0 ; reseting leds alarm
 	st $223, R0 ; reseting leds alarm
 	jmp set_time
 
@@ -90,6 +93,7 @@ choose_timer:
 	st $3, R2
 	cmp R2, R1
 	jne clear_alarm
+voltar:
 
 	lea R1, $1
 	and R0, R1, R0
@@ -125,7 +129,7 @@ timer_fast:
 
 reset_timer:
 	rst
-	ld R0, $3
+	ld R0, $3 ; R0 = flag_alarm
 	lea R1, $2
 	cmp R0, R1
 	je dec_sec
@@ -269,14 +273,14 @@ alarm:
 	ld R0, $4
 	lea R1, $0
 	cmp R0, R1
-	jne pisca_off
+	jne alarm1
 	lea R0, $1
 	st $4, R0
 	lea R0, $168
 	st $5, R0
 	jmp choose_timer
 
-pisca_off:
+alarm1:
 	lea R0, $0
 	st $4, R0
 	lea R0, $84
@@ -286,4 +290,4 @@ pisca_off:
 clear_alarm:
 	lea R0, $0
 	st $5, R0
-	jmp choose_timer
+	jmp voltar
