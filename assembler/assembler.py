@@ -122,22 +122,23 @@ for x in missing_jumps:
 
 # print(
 #     """DEPTH = 2048; -- The size of memory in words
-# WIDTH = 16; -- The size of data in bits 
-# ADDRESS_RADIX = HEX; -- The radix for address values 
-# DATA_RADIX = BIN; -- The radix for data values 
-# CONTENT -- start of (address : data pairs) 
+# WIDTH = 16; -- The size of data in bits
+# ADDRESS_RADIX = HEX; -- The radix for address values
+# DATA_RADIX = BIN; -- The radix for data values
+# CONTENT -- start of (address : data pairs)
 # BEGIN"""
 # )
-aa = """DEPTH = 1024; -- The size of memory in words
+s = """DEPTH = 1024; -- The size of memory in words
 WIDTH = 16; -- The size of data in bits 
 ADDRESS_RADIX = HEX; -- The radix for address values 
 DATA_RADIX = BIN; -- The radix for data values 
 CONTENT -- start of (address : data pairs) 
 BEGIN
 """
-for idx in range(len(instructions)):
-    aa += f"{hex(idx)[2:].zfill(3)} : {instructions[idx]};\n"
-aa += "END"
 
-with open("assembly.mif", "w") as file:
-    file.write(aa)
+for idx in range(len(instructions)):
+    s += f"{hex(idx)[2:].zfill(3)} : {instructions[idx]};\n"
+s += "END\n"
+
+with open("assembly.mif" if args.output is None else args.output, "w") as f:
+    f.write(s)
