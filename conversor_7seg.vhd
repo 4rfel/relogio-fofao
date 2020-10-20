@@ -19,7 +19,7 @@ end entity;
 
 architecture comportamento of conversor_7seg is
     SIGNAL hex           : std_logic_vector(13 downto 0);
-    SIGNAL input : unsigned(7 downto 0);
+    SIGNAL unsigned_input : unsigned(7 downto 0);
     
     FUNCTION Conv7Seg(
         digit : std_logic_vector(3 downto 0)
@@ -47,7 +47,7 @@ architecture comportamento of conversor_7seg is
     is 
         variable LEDS : std_logic_vector(digitos*7-1 downto 0);
         variable quo : unsigned(7 downto 0);
-        variable remainder: unsigned(3 downto 0);
+        variable restante: unsigned(3 downto 0);
     begin
         quo := value;
         FOR i in 0 to digitos-1 loop
@@ -61,19 +61,19 @@ architecture comportamento of conversor_7seg is
 
 
 begin
-    input <= unsigned(dadoHex);
+    unsigned_input <= unsigned(dadoHex);
     hex <= decimal7Segmentos(
-        input,
+        unsigned_input,
         2
     );
 
-    saida7seg1 <= "1100010" when (overFlow = '1') else
+    saida7seg2 <= "1100010" when (overFlow = '1') else
         "1111111" when (apaga = '1' and negativo = '0') else
         "0111111" when (apaga = '0' and negativo = '1') else
         hex(13 downto 7);
 
     
-    saida7seg2 <= "1100010" when (overFlow = '1') else
+    saida7seg1 <= "1100010" when (overFlow = '1') else
         "1111111" when (apaga = '1' and negativo = '0') else
         "0111111" when (apaga = '0' and negativo = '1') else
         hex(6 downto 0);

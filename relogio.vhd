@@ -225,29 +225,23 @@ architecture rtl of relogio is
 		
 		LEDR <= led_signal;
 		
-		conversorhex0: entity work.conversorHex7Seg
-		port map(dadoHex => data_bus_out(3 downto 0),
-				 saida7seg => HEX0n);
+		conversorhex0_1: entity work.conversor_7seg
+		port map(dadoHex => data_bus_out,
+				 saida7seg1 => HEX0n,
+				 saida7seg2 => HEX1n);
+
+
+		conversorhex2_3: entity work.conversor_7seg
+		port map(dadoHex => data_bus_out,
+				 saida7seg1 => HEX2n,
+				 saida7seg2 => HEX3n);
 			
-		conversorhex1: entity work.conversorHex7Seg
-		port map(dadoHex => data_bus_out(7 downto 4),
-				 saida7seg => HEX1n);
 				 
-		conversorhex2: entity work.conversorHex7Seg
-		port map(dadoHex => data_bus_out(3 downto 0),
-				 saida7seg => HEX2n);
-				 
-		conversorhex3: entity work.conversorHex7Seg
-		port map(dadoHex => data_bus_out(7 downto 4),
-				 saida7seg => HEX3n);
-				 
-		conversorhex4: entity work.conversorHex7Seg
-		port map(dadoHex => data_bus_out(3 downto 0),
-				 saida7seg => HEX4n);
-				 
-		conversorhex5: entity work.conversorHex7Seg
-		port map(dadoHex => data_bus_out(7 downto 4),
-				 saida7seg => HEX5n);
+		conversorhex4_5: entity work.conversor_7seg
+		port map(dadoHex => data_bus_out,
+				 saida7seg1 => HEX4n,
+				 saida7seg2 => HEX5n);
+
 
 		register_hex0: entity work.registrador
 		port map(DIN => "0" & HEX0n,

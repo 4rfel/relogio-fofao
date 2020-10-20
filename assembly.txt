@@ -116,7 +116,7 @@ inc_sec:
 	inc R0
 	lea R1, $60
 	cmp R0, R1
-	jne end_inc_sec
+	jl end_inc_sec
 	lea R0, $0
 	st $0, R0
 	jmp inc_min
@@ -130,7 +130,7 @@ inc_min:
 	inc R0
 	lea R1, $60
 	cmp R0, R1
-	jne end_inc_min
+	jl end_inc_min
 	lea R0, $0
 	st $1, R0
 	jmp inc_hr
@@ -144,7 +144,7 @@ inc_hr:
 	inc R0
 	lea R1, $12
 	cmp R0, R1
-	jne end_inc_hr
+	jl end_inc_hr
 	lea R0, $0
 	st $2, R0
 	jmp am_pm
