@@ -18,63 +18,58 @@ entity conversor_7seg is
 end entity;
 
 architecture comportamento of conversor_7seg is
-    SIGNAL hex           : std_logic_vector(13 downto 0);
-    SIGNAL unsigned_input : unsigned(7 downto 0);
+    signal hexa   : std_logic_vector(13 downto 0);
     
-    FUNCTION Conv7Seg(
-        digit : std_logic_vector(3 downto 0)
+    function converte(
+        digito : std_logic_vector(3 downto 0)
     ) return std_logic_vector
     is begin
-        case digit is
-            when x"0" => return "1000000";
-            when x"1" => return "1111001";
-            when x"2" => return "0100100";
-            when x"3" => return "0110000";
-            when x"4" => return "0011001";
-            when x"5" => return "0010010";
-            when x"6" => return "0000010";
-            when x"7" => return "1111000";
-            when x"8" => return "0000000";
-            when x"9" => return "0010000";
-                when others => return "1111111";
-        end case;
-    end;
-
-    FUNCTION decimal7Segmentos(
-        value: unsigned;
-        digitos: integer
+        if 	   (digito = x"0") then return "1000000";
+        elsif  (digito = x"1") then return "1111001";
+        elsif  (digito = x"2") then return "0100100";
+        elsif  (digito = x"3") then return "0110000";
+        elsif  (digito = x"4") then return "0011001";
+        elsif  (digito = x"5") then return "0010010";
+        elsif  (digito = x"6") then return "0000010";
+        elsif  (digito = x"7") then return "1111000";
+        elsif  (digito = x"8") then return "0000000";
+        elsif  (digito = x"9") then return "0010000";
+        else return "1111111";
+		end if;
+	 end;
+	 
+	function decimalParaLed( -- Codigo baseado em https://stackoverflow.com/questions/20866747/decimal-number-on-7-segment-display, porem simplificado
+        value: unsigned
     ) return std_logic_vector
     is 
-        variable LEDS : std_logic_vector(digitos*7-1 downto 0);
-        variable quo : unsigned(7 downto 0);
-        variable restante: unsigned(3 downto 0);
+        variable LED : std_logic_vector(13 downto 0);
+        variable quoeficient : unsigned(7 downto 0);
+        variable resto: unsigned(3 downto 0);
     begin
-        quo := value;
-        FOR i in 0 to digitos-1 loop
-            restante := resize(quo mod 10, 4);
-            quo  := quo/10;
-            LEDS(i*7+6 downto i*7) := Conv7Seg(std_logic_vector(restante)
-            );
-        end loop;
-        return LEDS;
+			quoeficient := value;
+			
+			resto := resize(quoeficient mod 10, 4); 	-- pega o resto da divisao por 10
+         quoeficient  := quoeficient/10;				-- Cria um novo divisor pra proxima interacao
+         LED(6 downto 0) := converte(std_logic_vector(resto)); -- Ve quanto que eh a o numero menos significativo
+			
+			resto := resize(quoeficient mod 10, 4); -- Faz igual pro segundo numero, as vezes eh zero mesmo
+         quoeficient  := quoeficient/10;
+         LED(13 downto 7) := converte(std_logic_vector(resto));
+        return LED;
     end;
 
 
 begin
-    unsigned_input <= unsigned(dadoHex);
-    hex <= decimal7Segmentos(
-        unsigned_input,
-        2
-    );
+    hexa <= decimalParaLed(unsigned(dadoHex));
 
-    saida7seg2 <= "1100010" when (overFlow = '1') else
-        "1111111" when (apaga = '1' and negativo = '0') else
-        "0111111" when (apaga = '0' and negativo = '1') else
-        hex(13 downto 7);
+    saida7seg2 <= "1100010" WHEN (overFlow = '1') ELSE
+        "1111111" WHEN (apaga = '1' AND negativo = '0') ELSE
+        "0111111" WHEN (apaga = '0' AND negativo = '1') ELSE
+        hexa(13 DOWNTO 7);
 
     
-    saida7seg1 <= "1100010" when (overFlow = '1') else
-        "1111111" when (apaga = '1' and negativo = '0') else
-        "0111111" when (apaga = '0' and negativo = '1') else
-        hex(6 downto 0);
-end architecture;
+    saida7seg1 <= "1100010" WHEN (overFlow = '1') ELSE
+        "1111111" WHEN (apaga = '1' AND negativo = '0') ELSE
+        "0111111" WHEN (apaga = '0' AND negativo = '1') ELSE
+        hexa(6 DOWNTO 0);
+END ARCHITECTURE;
