@@ -6,6 +6,6 @@ KEY2 muda hora
 KEY1 muda minuto  
 KEY0 muda segundo  
   
-LEDs9 e 8 indicam se é Am ou PM  
+LEDs9 e 8 indicam se é AM ou PM  
  
  
